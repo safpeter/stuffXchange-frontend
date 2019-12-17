@@ -19,8 +19,8 @@
       v-model="drawer"
       app
       clipped
-    >          <v-img class="logo" src="@/assets/StuffX-logo.png" height="34%" width="auto%"></v-img>
-   <v-list-item v-for="item in items" :key="item.text" text-color="orange">
+    >          <v-img class="logo" src="@/assets/logo-StuffX.png" height="50%" width="100%"></v-img>
+   <v-list-item v-for="item in items" :key="item.text" >
           <v-btn @click="gotoRoute(item.route)" class="orange--text" absolute color="transparent" depressed>     
             <v-list-item-action>
               <v-icon class="orange--text">{{ item.icon }}</v-icon>
@@ -43,13 +43,18 @@ export default {
   name: "App",  
   data: () => ({
       items: [
-      { icon: "mdi-account", text: "My Profile" },
+      { icon: "mdi-account", text: "My Profile", route:"profile" },
       { icon: "mdi-cash-multiple", text: "Stuff to sell", route:"sell"},
       { icon: "mdi-basket", text: "Stuff to Buy", route:"buy" },
       { icon: "mdi-magnify-plus", text: "Advanced Search", route:"search" },
       { icon: "mdi-logout", text: "Log out" }
     ],
   }), 
+  methods: {
+    gotoRoute(route){
+      this.$router.push("/" + route);
+    }
+  }
 
 }
 </script>
@@ -59,16 +64,16 @@ export default {
 }
 
 #app {
-  background-color:orange !important;
+  background-color:#f1803a !important;
   }
 
 .search-bar{
   margin-left: 45%;
-  color: orange !important;
+  color: #f1803a !important;
 }
 
 .logo {
-  margin-top: -1%;
+  margin-top: -30%;
  
 }
 
