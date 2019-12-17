@@ -1,32 +1,49 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app id="app">
+     <v-col cols="15" sm="6" md="4" class="search-bar">
+      <v-text-field
+        solo-inverted
+        hide-details
+        label="Search"
+        prepend-inner-icon="mdi-magnify"
+      />  
+     </v-col>
+       <v-navigation-drawer
+       absolute
+      permanent
+      right
+      floating
+      
+      class="navbar"
+      v-model="drawer"
+      app
+      clipped
+    >
+     </v-navigation-drawer>
+      <v-content>
+      <router-view/>
+      </v-content>
+  </v-app>
 </template>
+<script>
+import home from "./views/Home";
 
-<style>
+export default {
+  name: "App",  
+}
+</script>
+<style scoped >
+.navbar {
+  background-color:#424242 !important;
+  box-shadow:transparent;
+}
+
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  background-color:orange !important;
+  }
+
+.search-bar{
+  margin-left: 45%;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
