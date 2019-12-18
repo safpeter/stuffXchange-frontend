@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/newAccount",
+    path: "/newaccount",
     name: "newAccount",
     component: () => import ("@/views/NewAccount.vue")
   },

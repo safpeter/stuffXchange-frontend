@@ -18,7 +18,7 @@
       @click:append="show1 = !show1"
       required
     ></v-text-field>
-    <v-text-field v-model="country"   label="Country" :rules="rules.required"></v-text-field>
+    <v-text-field v-model="country"   label="Country" ></v-text-field>
     <v-checkbox
       v-model="checkbox"
       :rules="[v => !!v || 'You must agree to continue!']"
