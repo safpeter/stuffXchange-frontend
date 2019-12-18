@@ -26,7 +26,7 @@
     ></v-text-field>
 
     <v-btn @click="loginBtnFunc" :disabled="!valid" color="success" class="mr-4">Login</v-btn>
-    <span class="text">    Or if you do not have an account: </span>
+    <span class="text">    Or  </span>
     <v-btn @click="newAccountBtn"  color="#f1803a" class="mr-4">Create account</v-btn>
     <v-dialog v-model="dialog" max-width="290">
       <v-card>
@@ -87,8 +87,8 @@ export default {
 </script>
 
 <style scoped>
-.mx-auto {
-  margin: 1rem !important;
+.mx-auto {  
+    margin-top: -10%;
   background-color: #424242;
   width:80%
 }
