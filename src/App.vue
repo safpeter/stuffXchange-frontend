@@ -38,6 +38,7 @@
 </template>
 <script>
 import home from "./views/Home";
+import login from "./views/Login";
 
 export default {
   name: "App",  
@@ -65,6 +66,8 @@ export default {
 
 #app {
   background-color:#f1803a !important;
+  color: #424242;
+  font-family:'Courier New', Courier, monospace !important;
   }
 
 .search-bar{
@@ -74,8 +77,6 @@ export default {
 
 .logo {
   margin-top: -30%;
- 
 }
-
 
 </style>
