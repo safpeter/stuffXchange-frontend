@@ -3,10 +3,12 @@
     <v-card class="mx-auto" md dark>
         <v-form ref="form" v-model="valid" lazy-validation>
      <v-row justify="center">
+     <v-row class="text" justify="center">Create New Account</v-row>
     <v-col cols="12" sm="10" md="8" lg="10">
-    <v-text-field v-model="name" :counter="20" :rules="nameRules" label="Name" required></v-text-field>
-    <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+    <v-text-field class="text" v-model="name" :counter="20" :rules="nameRules" label="Name" required></v-text-field>
+    <v-text-field class="text"  v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
     <v-text-field
+      class="text"
       v-model="password"
       :append-icon="show1 ? items[0].icon1 : items[1].icon2"
       :rules="passwordRules"
@@ -18,7 +20,7 @@
       @click:append="show1 = !show1"
       required
     ></v-text-field>
-    <v-text-field v-model="country"   label="Country" ></v-text-field>
+    <v-text-field class="text" v-model="country"   label="Country" ></v-text-field>
     <v-checkbox
       v-model="checkbox"
       :rules="[v => !!v || 'You must agree to continue!']"
@@ -26,16 +28,12 @@
       required
     ></v-checkbox>
     <v-btn @click="signBtnFunc" :disabled="!valid" color="success" class="mr-4">Create Account</v-btn>
-    <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
     <v-dialog v-model="dialog" max-width="290">
       <v-card>
         <v-card-title class="headline" wrap>Registration fail</v-card-title>
-
         <v-card-text wrap>Name was taken, please try sign-up with different name.</v-card-text>
-
         <v-card-actions>
           <v-spacer></v-spacer>
-
           <v-btn color="green darken-1" text @click="dialog = false">Ok</v-btn>
         </v-card-actions>
       </v-card>
@@ -63,7 +61,6 @@ export default {
         { icon1: "mdi-eye-off-outline", text: "visibility_off" },
         { icon2: "mdi-eye-outline", text: "visibility" }
       ],
-
       password: "",
       passwordRules: [
          v => !!v || "Required.",
@@ -74,14 +71,14 @@ export default {
       nameRules: [
         v => !!v || "Name is required",
         v => (v && v.length <= 20 || v.length < 4) || "Name must be less than 20 characters",
-        v => ( v.length > 4) ||  "Name must be more than 3 characters"
+        v => ( v.length > 3) ||  "Name must be more than 3 characters"
       ],
       email: "",
       emailRules: [
         v => !!v || "E-mail is required",
         v => /.+@.+\..+/.test(v) || "E-mail must be valid"
       ],
-
+    country:"",
       checkbox: false,
       lazy: false
     };
@@ -112,15 +109,20 @@ export default {
       });
     } 
 }
-  
 };
 </script>
 
 <style scoped>
 .mx-auto {
-    margin-top: -10%;
+  margin-top: -10%;
   background-color: #424242;
-  width:80%
+  width:80%;
+  padding:3%;
+}
+
+.text {
+    color: #f1803a !important;
+    font-size: 130%;
 }
 
 </style>

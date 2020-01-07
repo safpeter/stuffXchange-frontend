@@ -3,15 +3,13 @@
         <v-card class="mx-auto" md dark>
         <v-form ref="form" v-model="valid" lazy-validation>
             <v-row class="text" justify="center">Welcome to StuffX!</v-row>
-            <v-row class="text" justify="center">Enter your Username and Password to log in or create a new account</v-row>
-
+            <v-row class="text" justify="center">Enter your Username and Password to log in or create a new account!</v-row>
       <v-row justify="center">
     <v-col cols="12" sm="10" md="8" lg="10">
-    <v-text-field v-model="name" :counter="20" :rules="nameRules" label="Name" required>
+    <v-text-field class="text" v-model="name" :counter="20" :rules="nameRules" label="Name" required>
     </v-text-field>
-
     <v-text-field
-
+    class="text"
       v-model="password"
       :append-icon="show1 ? items[0].icon1 : items[1].icon2"
       :rules="[rules.required, rules.min]"
@@ -24,10 +22,9 @@
       @click:append="show1 = !show1"
       required
     ></v-text-field>
-
     <v-btn @click="loginBtnFunc" :disabled="!valid" color="success" class="mr-4">Login</v-btn>
     <span class="text">    Or  </span>
-    <v-btn @click="newAccountBtn"  color="#f1803a" class="mr-4">Create account</v-btn>
+    <v-btn @click="newAccountBtn"  color="#f1803a" class="mr-4" justify-space-between id="newAccountBtn">Create account</v-btn>
     <v-dialog v-model="dialog" max-width="290">
       <v-card>
         <v-card-title class="headline" wrap>Login failed</v-card-title>
@@ -88,12 +85,18 @@ export default {
 
 <style scoped>
 .mx-auto {  
-    margin-top: -10%;
+  margin-top: -10%;
   background-color: #424242;
-  width:80%
-}
+  width:80%;
+  padding:3%;
+  }
 
 .text {
     color: #f1803a !important;
+    font-size: 130%;
+}
+
+.newAccountBtn{
+  padding:30%;
 }
 </style>
