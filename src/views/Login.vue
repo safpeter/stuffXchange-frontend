@@ -85,7 +85,7 @@ export default {
 
 <style scoped>
 .mx-auto {  
-  margin-top: -10%;
+  margin-top: 5%;
   background-color: #424242;
   width:80%;
   padding:3%;

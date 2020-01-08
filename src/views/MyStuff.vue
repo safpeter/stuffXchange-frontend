@@ -2,7 +2,7 @@
   <v-container >
       <v-row>
                 <v-col class="headers" absolute color="transparent" depressed>
-         My Stuff
+                My Stuff
              </v-col>
               <v-col>
                <v-btn  class="headers"  absolute color="transparent" depressed><v-icon large> mdi-plus-box</v-icon>Add New Stuff</v-btn>

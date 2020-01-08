@@ -3,7 +3,7 @@
   <v-app id="app">
     <v-app-bar app dark  clipped>
       <div>
-        <v-img   app class="logo" src="@/assets/logo-StuffX.png" height="20%" width="42%"></v-img>
+        <v-img app class="logo" src="@/assets/logo-StuffX.png" height="20%" width="42%"></v-img>
       </div>
         <v-col cols="15" sm="6" md="4" class="search-bar" >
       <v-text-field
@@ -18,24 +18,27 @@
       <v-menu offset-y>
       <template v-slot:activator="{ on }">
         <v-btn
-        color="#f1803a"
-        text="dark"
-          v-on="on"
+        depressed
+        color="#424242"
+        v-on="on"
+        class="orange--text"
         >
         <span>Menu</span>
         <v-icon>mdi-menu</v-icon>
         </v-btn>
       </template>
-     <v-list-item v-for="item in items" :key="item.text" class="buttons" >
+      <v-container class="dropdown">
+     <v-list-item v-for="item in items" :key="item.text" >
           <v-btn @click="gotoRoute(item.route)" class="dark--text" absolute color="transparent" depressed>     
             <v-list-item-action>
-              <v-icon class="dark--text" id="icons">{{ item.icon }}</v-icon>
+              <v-icon class="orange--text" id="icons">{{ item.icon }}</v-icon>
             </v-list-item-action >
             <v-list-item-content >
-              <v-list-item-title class="navbar-text">{{ item.text }}</v-list-item-title>
+              <v-list-item-title class="orange--text" id="btn-text">{{ item.text }}</v-list-item-title>
             </v-list-item-content>
           </v-btn>
         </v-list-item>
+      </v-container>
     </v-menu>
     </v-app-bar>
       
@@ -69,33 +72,27 @@ export default {
 }
 </script>
 <style scoped >
-
-
 #app {
   background-color:#f1803a !important;
   background-repeat: repeat;
   color: #424242;
   font-family:Georgia, 'Times New Roman', Times, serif!important;
-  }
+}
+
+.dropdown{
+  width:300px;
+  background-color: #424242;
+}
 
 .search-bar{
   color: #f1803a !important;
   font-size: 110%;
-  margin-left: -10%;
+  margin-left: -20%;
 }
 
 .logo {
   margin-left: -5%;
   margin-top: 3%;
 }
-
-.buttons{
-  margin-left: -10%;
-}
-
-#icons {
-  margin-left: 100%;
-};
-
 
 </style>
