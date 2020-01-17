@@ -24,7 +24,7 @@
     ></v-text-field>
     <v-btn @click="loginBtnFunc" :disabled="!valid" color="success" class="mr-4">Login</v-btn>
     <span class="text">    Or  </span>
-    <v-btn @click="newAccountBtn"  color="#f1803a" class="mr-4" justify-space-between id="newAccountBtn">Create account</v-btn>
+    <v-btn @click="newAccountBtn" color="#ff6802"  class="mr-4" justify-space-around id="newAccountBtn">Create account</v-btn>
     <v-dialog v-model="dialog" max-width="290">
       <v-card>
         <v-card-title class="headline" wrap>Login failed</v-card-title>
@@ -92,7 +92,7 @@ export default {
   }
 
 .text {
-    color: #f1803a !important;
+    color:#ff6802  !important;
     font-size: 130%;
 }
 

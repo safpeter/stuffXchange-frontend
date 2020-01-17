@@ -1,61 +1,59 @@
 <template>
-  <v-container >
-      <v-row>
-                <v-col class="headers" absolute color="transparent" depressed>
-                My Stuff
-             </v-col>
-              <v-col>
-               <v-btn  class="headers"  absolute color="transparent" depressed><v-icon large> mdi-plus-box</v-icon>Add New Stuff</v-btn>
-             </v-col>
-     </v-row>
-     <v-row>
-        <v-card dark class="d-inline-block mx-auto">
-    <v-container>
-      <v-row justify="space-between">
-        <v-col cols="auto">
-          <v-img
-            height="300"
-            width="300"
-            src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
-          ></v-img>
-        </v-col>
-
-        <v-col
-          cols="auto"
-          class="text-center pl-0"
-        >
-          <v-row
-            class="flex-column ma-0 fill-height"
-            justify="center"
-          >
-            <v-col class="px-0">
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-            </v-col>
-
-            <v-col class="px-0">
-              <v-btn icon>
-                <v-icon>mdi-bookmark</v-icon>
-              </v-btn>
-            </v-col>
-
-            <v-col class="px-0">
-              <v-btn icon>
-                <v-icon>mdi-share-variant</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-card>
-     </v-row>
-  </v-container>
+  <div>
+          <v-container>
+      <v-layout  row wrap >
+    <v-flex md6>
+        <h2>Stuff To Sell</h2>
+    </v-flex>
+                  <v-flex md6>
+          <v-btn @click="goToAddStuff" id="btn-add" absolute color="transparent" depressed>
+            <v-icon x-large>mdi-plus-box</v-icon>Add New Stuff
+          </v-btn>
+                  </v-flex>
+      </v-layout>
+      <v-layout row wrap>
+          <v-card flat @click="getDetails(id)" dark class="mx-auto"  max-height="300" max-width="350">
+            <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" max-height="150"></v-img>
+            <v-card-title>Stuff Name</v-card-title>
+            <v-card-subtitle>Place</v-card-subtitle>
+            <v-card-text>Price</v-card-text>
+          </v-card>
+      </v-layout>   
+       </v-container>
+    </div>
 </template>
 
+<script>
+export default {
+  methods: {
+    goBack() {
+      window.history.back();
+    },
+    goToAddStuff() {
+      this.$router.push("/addstuff");
+    },
+    getDetails(id) {
+      this.$router.push(`/stuffdetails/` + id);
+    }
+  }
+};
+</script>
 
 <style scoped>
+#btn-add {
+  font-size: 125%;
+  margin-left: -3%;
+  color: #424242;
+}
 
-  
+.container {
+  display: flex;
+  position: relative;
+}
+
+.mx-auto{
+  position: relative;
+  margin-top: 5%;
+  display: block;
+}
 </style>

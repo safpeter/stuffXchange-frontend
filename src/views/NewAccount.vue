@@ -121,7 +121,7 @@ export default {
 }
 
 .text {
-    color: #f1803a !important;
+    color:#ff6802  !important;
     font-size: 130%;
 }
 
