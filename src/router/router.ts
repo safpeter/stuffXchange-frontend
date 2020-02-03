@@ -29,7 +29,12 @@ const routes = [
     path: "/addstuff",
     name: "addstuff",
     component: () => import("@/views/AddStuff.vue")
-  }
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: () => import("@/views/MyProfile.vue")
+  },
 ];
 
 const router = new VueRouter({

@@ -1,10 +1,11 @@
  <template>
  <nav>
     <v-app-bar app dark  clipped>
-        <v-img class="logo" src="@/assets/logo-StuffX.png" max-height="140%" max-width="12%"></v-img>
+        <v-img  src="@/assets/logo-StuffX.png" max-height="140%" max-width="12%"></v-img>
         <v-col cols="15" sm="4" md="4" class="search-bar">
       <v-text-field
       color="#ff6802"
+      class="search-bar-text"
         solo-inverted
         hide-details
         label="Search"
@@ -28,7 +29,7 @@
      <v-list-item v-for="item in items" :key="item.text" >
           <v-btn @click="gotoRoute(item.route)" class="dark--text" absolute color="transparent" depressed>     
             <v-list-item-action>
-              <v-icon class="text-icon" id="icons">{{ item.icon }}</v-icon>
+              <v-icon class="text-icon">{{ item.icon }}</v-icon>
             </v-list-item-action >
             <v-list-item-content >
               <v-list-item-title class="text-icon" id="btn-text">{{ item.text }}</v-list-item-title>
@@ -74,9 +75,9 @@ export default {
   font-size: 110%;
 }
 
-.logo {
-  margin-left: 0%;
-  }
+.search-bar-text{
+   border: solid #33312E 1px;
+}
 
 .text-icon {
 color:#ff6802 !important;

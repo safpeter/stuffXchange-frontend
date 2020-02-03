@@ -10,8 +10,6 @@
 </template>
 
 <script>
-import home from "@/views/Home";
-import login from "@/views/Login";
 import AppBar from "@/components/AppBar"
 
 export default {
@@ -22,7 +20,7 @@ export default {
 </script>
 <style scoped >
 #app {
-  background-color:#ff6802 !important;
+  background-color:#33312E !important;
   background-repeat: repeat;
   color: #424242;
   font-family:Cambria, Cochin, Georgia,  !important;

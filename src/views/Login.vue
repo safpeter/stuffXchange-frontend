@@ -1,6 +1,6 @@
 <template>
 <v-container dark>
-        <v-card class="mx-auto" md dark>
+        <v-card class="mx-auto"  dark>
         <v-form ref="form" v-model="valid" lazy-validation>
             <v-row class="text" justify="center">Welcome to StuffX!</v-row>
             <v-row class="text" justify="center">Enter your Username and Password to log in or create a new account!</v-row>
@@ -22,9 +22,17 @@
       @click:append="show1 = !show1"
       required
     ></v-text-field>
-    <v-btn @click="loginBtnFunc" :disabled="!valid" color="success" class="mr-4">Login</v-btn>
+    <v-row>
+      <v-col>
+    <v-btn @click="loginBtnFunc" :disabled="!valid" color="success" >Login</v-btn>
+      </v-col>
+      <v-col>
     <span class="text">    Or  </span>
-    <v-btn @click="newAccountBtn" color="#ff6802"  class="mr-4" justify-space-around id="newAccountBtn">Create account</v-btn>
+      </v-col>
+    <v-col>
+    <v-btn @click="newAccountBtn" color="#ff6802"   >Create account</v-btn>
+    </v-col>
+    </v-row>
     <v-dialog v-model="dialog" max-width="290">
       <v-card>
         <v-card-title class="headline" wrap>Login failed</v-card-title>
@@ -85,18 +93,13 @@ export default {
 
 <style scoped>
 .mx-auto {  
-  margin-top: 5%;
   background-color: #424242;
-  width:80%;
   padding:3%;
   }
 
 .text {
     color:#ff6802  !important;
-    font-size: 130%;
+    font-size: 110%;
 }
 
-.newAccountBtn{
-  padding:30%;
-}
 </style>

@@ -45,9 +45,12 @@
     "extends": [
       "plugin:vue/essential",
       "@vue/prettier",
-      "@vue/typescript"
+      "@vue/typescript",
+      "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": "off"
+    },
     "parserOptions": {
       "parser": "@typescript-eslint/parser"
     }

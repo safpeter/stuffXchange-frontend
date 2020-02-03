@@ -2,8 +2,8 @@
 <v-container dark>
     <v-card class="mx-auto" md dark>
         <v-form ref="form" v-model="valid" lazy-validation>
-     <v-row justify="center">
-     <v-row class="text" justify="center">Create New Account</v-row>
+          <v-row justify="center" class="text">Create New Account</v-row>
+            <v-row justify="center">
     <v-col cols="12" sm="10" md="8" lg="10">
     <v-text-field class="text" v-model="name" :counter="20" :rules="nameRules" label="Name" required></v-text-field>
     <v-text-field class="text"  v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
@@ -114,15 +114,13 @@ export default {
 
 <style scoped>
 .mx-auto {
-  margin-top: 5%;
   background-color: #424242;
-  width:80%;
   padding:3%;
 }
 
 .text {
     color:#ff6802  !important;
-    font-size: 130%;
+    font-size: 110%;
 }
 
 </style>
