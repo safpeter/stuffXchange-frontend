@@ -6,10 +6,17 @@
             <v-row class="text" justify="center">Enter your Username and Password to log in or create a new account!</v-row>
       <v-row justify="center">
     <v-col cols="12" sm="10" md="8" lg="10">
-    <v-text-field class="text" v-model="name" :counter="20" :rules="nameRules" label="Name" required>
+    <v-text-field
+    outlined
+     class="text" 
+     v-model="name" 
+     :counter="20" 
+     :rules="nameRules"
+     label="Name" required>
     </v-text-field>
     <v-text-field
     class="text"
+    outlined
       v-model="password"
       :append-icon="show1 ? items[0].icon1 : items[1].icon2"
       :rules="[rules.required, rules.min]"

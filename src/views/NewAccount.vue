@@ -5,9 +5,22 @@
           <v-row justify="center" class="text">Create New Account</v-row>
             <v-row justify="center">
     <v-col cols="12" sm="10" md="8" lg="10">
-    <v-text-field class="text" v-model="name" :counter="20" :rules="nameRules" label="Name" required></v-text-field>
-    <v-text-field class="text"  v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-    <v-text-field
+    <v-text-field 
+    outlined
+    class="text" 
+    v-model="name" 
+    :counter="20" 
+    label="Name" 
+    required></v-text-field>
+    <v-text-field 
+    outlined
+    class="text"  
+    v-model="email" 
+    :rules="emailRules" 
+    label="E-mail" 
+    required></v-text-field>
+    <v-text-field    
+      outlined
       class="text"
       v-model="password"
       :append-icon="show1 ? items[0].icon1 : items[1].icon2"
@@ -20,7 +33,12 @@
       @click:append="show1 = !show1"
       required
     ></v-text-field>
-    <v-text-field class="text" v-model="country"   label="Country" ></v-text-field>
+    <v-autocomplete 
+    outlined
+    class="text" 
+    v-model="country"   
+    label="Country" >
+    </v-autocomplete>
     <v-checkbox
       v-model="checkbox"
       :rules="[v => !!v || 'You must agree to continue!']"

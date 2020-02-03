@@ -26,7 +26,17 @@
               cols="12"
             ></v-text-field>
           </v-col>
-          <v-col></v-col>
+           <v-col>
+            <v-autocomplete
+              dark
+              outlined
+              color="#ff6802"
+              v-model="stuffName"
+              label="Currency"
+              required
+              cols="12"
+            ></v-autocomplete>
+          </v-col>
         </v-row>
         <v-textarea dark color="#ff6802" label="Stuff Description" outlined></v-textarea>
        <v-row >
