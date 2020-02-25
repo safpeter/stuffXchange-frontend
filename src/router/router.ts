@@ -8,24 +8,24 @@ const routes = [
   {
     path: "/newaccount",
     name: "newAccount",
-    component: () => import ("@/views/NewAccount.vue")
+    component: () => import("@/views/NewAccount.vue")
   },
   {
     path: "/",
     name: "login",
-    component: () => import ("@/views/Login.vue")
+    component: () => import("@/views/Login.vue")
   },
   {
     path: "/home",
     name: "home",
-    component: () => import ("@/views/Home.vue")
+    component: () => import("@/views/Home.vue")
   },
   {
     path: "/mystuff",
     name: "mystuff",
     component: () => import("@/views/MyStuff.vue")
   },
-   {
+  {
     path: "/addstuff",
     name: "addstuff",
     component: () => import("@/views/AddStuff.vue")

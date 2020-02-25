@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container>
-      <v-form ref="form" v-model="valid">
+      <v-form ref="form" enctype="multipart/form-data">
         <v-row justify="center" class="text">Add New Stuff</v-row>
         <v-row wrap>
           <v-col>
@@ -11,7 +11,7 @@
               color="#ff6802"
               v-model="stuffName"
               label="Stuff Name"
-              required
+              :rules="[rules.required,rules.nameLength]"
               cols="12"
             ></v-text-field>
           </v-col>
@@ -20,43 +20,55 @@
               dark
               outlined
               color="#ff6802"
-              v-model="stuffName"
+              v-model="stuffPrice"
               label="Stuff Price"
-              required
+              :rules="[rules.required,rules.priceRules]"
               cols="12"
             ></v-text-field>
           </v-col>
-           <v-col>
+          <v-col>
             <v-autocomplete
               dark
               outlined
               color="#ff6802"
-              v-model="stuffName"
+              v-model="stuffCurrency"
               label="Currency"
-              required
               cols="12"
             ></v-autocomplete>
           </v-col>
         </v-row>
-        <v-textarea dark color="#ff6802" label="Stuff Description" outlined></v-textarea>
-       <v-row >
-                       <v-col >
-        <input id="input" type="file"  @change="selectFile" accept="image/*" />
-        <label for="input">
-          <v-btn class="btn" color="#ff6802">Select Images</v-btn>
-        </label>
-        </v-col>
-        <v-spacer></v-spacer>
-        <v-col>
-        <v-btn color="success" @click="sendStuff">Upload Stuff</v-btn>
-        </v-col>
-       </v-row>
-       <v-row>
-        <div  v-for="image in images" :key="image.index" max-width="30%" color="#33312E" class="mx-auto" >
-            <v-img  :src="image" height="200" width="200" display="inline-block"></v-img>
-        </div>
-        <img id="picture" width="30%" height="30%" >
-       </v-row>
+        <v-textarea
+          dark
+          color="#ff6802"
+          label="Stuff Description"
+          v-model="stuffDescription"
+          :rules="[rules.required, rules.descriptionLength]"
+          outlined
+        ></v-textarea>
+        <v-row>
+          <v-col>
+            <input id="input" type="file" @change="selectFile" accept="image/*" />
+            <label for="input">
+              <v-btn class="btn" color="#ff6802">Select Images</v-btn>
+            </label>
+          </v-col>
+          <v-spacer></v-spacer>
+          <v-col>
+            <v-btn color="success" @click="sendStuff">Upload Stuff</v-btn>
+          </v-col>
+        </v-row>
+        <v-row>
+          <div
+            v-for="image in imagesToDisplay"
+            :key="image.index"
+            max-width="30%"
+            color="#33312E"
+            class="mx-auto"
+          >
+            <v-img :src="image" height="200" width="200" display="inline-block"></v-img>
+          </div>
+          <img id="picture" width="30%" height="30%" />
+        </v-row>
       </v-form>
     </v-container>
   </div>
@@ -65,18 +77,39 @@
 <script>
 export default {
   data: () => ({
-    images: [],
+    imagesToDisplay: [],
+    stuffName: "",
+    stuffPrice: "",
+    stuffDescription: "",
+    stuffCurrency: "",
+    imagesToUpload: [],
+    pictureTarget: "",
+    rules: {
+      required: value => !!value || "Required",
+      nameLength: value =>
+        value.length > 4 || "Name must be more than 5 characters ",
+      priceRules: value => !isNaN(value) || "Price must be a number",
+      descriptionLength: value =>
+        value.length > 10 || "Description must be more than 10 characters"
+    }
   }),
   methods: {
     selectFile(event) {
+      let target = event.target.files[0];
+      this.pictureTarget = target;
+      this.imagesToUpload.push(target);
       let picture = document.getElementById("picture");
-      picture.src = URL.createObjectURL(event.target.files[0]);
-      this.images.push(picture.src);
-      console.log(this.images);
+      picture.src = URL.createObjectURL(target);
+      this.imagesToDisplay.push(picture.src);
     },
     sendStuff() {
       const data = new FormData();
-      data.append("image");
+      data.set("name", this.stuffName);
+      data.set("price", this.stuffPrice);
+      data.set("description", this.stuffDescription);
+      this.imagesToUpload.forEach(i => data.append("images", i));
+      this.$store.dispatch("uploadStuff", data);
+      console.log(data);
     }
   }
 };
@@ -84,7 +117,7 @@ export default {
 
 <style scoped>
 .mx-auto {
-    display: block;
+  display: block;
   margin: 1rem !important;
 }
 
@@ -98,7 +131,7 @@ export default {
 }
 
 #picture {
-    display: none;
+  display: none;
 }
 .btn {
   pointer-events: none;
