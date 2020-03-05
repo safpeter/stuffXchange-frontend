@@ -15,10 +15,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    uploadStuff(stuff) {
+    uploadStuff(context,stuff) {
       axios({
         method: "post",
-        headers: { 'content-type': 'multipart/form-data' },
         url: "http://localhost:9000/uploadstuff",
         data: stuff
       })
