@@ -3,7 +3,9 @@
   <v-app id="app">
   <AppBar> </AppBar>  
   <v-content>
-         <router-view> </router-view >
+         <router-view> 
+     <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-parallax>
+         </router-view >
     </v-content>
      
   </v-app>
@@ -19,11 +21,14 @@ export default {
 }
 </script>
 <style scoped >
+@import url('https://fonts.googleapis.com/css?family=Sen&display=swap');
+
 #app {
   background-color:#33312E !important;
   background-repeat: repeat;
-  color: #424242;
-  font-family:Cambria, Cochin, Georgia,  !important;
+  font-size: 110%;
+  font-family:'Sen',sans-serif;   
+
 }
 
 

@@ -21,7 +21,7 @@
         v-on="on"
         class="text-icon"
         >
-        <span>Menu</span>
+        <span id="menu">Menu</span>
         <v-icon>mdi-menu</v-icon>
         </v-btn>
       </template>
@@ -32,7 +32,7 @@
               <v-icon class="text-icon">{{ item.icon }}</v-icon>
             </v-list-item-action >
             <v-list-item-content >
-              <v-list-item-title class="text-icon" id="btn-text">{{ item.text }}</v-list-item-title>
+              <v-list-item-title class="text-icon" >{{ item.text }}</v-list-item-title>
             </v-list-item-content>
           </v-btn>
         </v-list-item>
@@ -65,23 +65,27 @@ export default {
 
 <style scoped>
 
+#menu{
+  font-size: 130% !important;
+}
+
 .dropdown{
   width:300px;
   background-color: #424242;
 }
 
 .search-bar{
-  color: #ff6802 !important;
-  font-size: 110%;
+  color:  #ff6802!important;
 }
 
 .search-bar-text{
    border: solid #33312E 1px;
+   font-size: 110%;
 }
 
 .text-icon {
-color:#ff6802 !important;
-
+  color:#ff6802 !important;
+    font-size: 120%;
 }
 
 

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-card dark id="card">
     <v-container>
       <v-form ref="form" enctype="multipart/form-data">
         <v-row justify="center" class="text">Add New Stuff</v-row>
@@ -31,6 +32,7 @@
               dark
               outlined
               color="#ff6802"
+              :items="getCurrencies"
               v-model="stuffCurrency"
               label="Currency"
               cols="12"
@@ -58,7 +60,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <div
+          <v-card
             v-for="image in imagesToDisplay"
             :key="image.index"
             max-width="30%"
@@ -66,11 +68,12 @@
             class="mx-auto"
           >
             <v-img :src="image" height="200" width="200" display="inline-block"></v-img>
-          </div>
-          <img id="picture" width="30%" height="30%" />
+          </v-card>
+          <img id="picture" width="35%" height="35%" />
         </v-row>
       </v-form>
     </v-container>
+        </v-card>
   </div>
 </template>
 
@@ -93,6 +96,14 @@ export default {
         value.length > 10 || "Description must be more than 10 characters"
     }
   }),
+  created() {
+    this.$store.dispatch("getCurrencies")
+  },
+  computed: {
+    getCurrencies(){
+      return this.$store.state.currencies;
+    }
+  },
   methods: {
     selectFile(event) {
       let target = event.target.files[0];
@@ -109,13 +120,17 @@ export default {
       data.set("description", this.stuffDescription);
       this.imagesToUpload.forEach(i => data.append("images", i));
       this.$store.dispatch("uploadStuff", data);
-      console.log(data);
     }
   }
 };
 </script>
 
 <style scoped>
+
+#card {
+  margin:1%;
+}
+
 .mx-auto {
   display: block;
   margin: 1rem !important;
@@ -123,7 +138,7 @@ export default {
 
 .text {
   color: #ff6802;
-  font-size: 110%;
+  font-size: 120%;
 }
 
 #input {

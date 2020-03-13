@@ -5,7 +5,14 @@
         <v-row justify="center" class="text">Create New Account</v-row>
         <v-row justify="center">
           <v-col cols="12" sm="10" md="8" lg="10">
-            <v-text-field outlined class="text" v-model="name" :counter="20" label="Name" required></v-text-field>
+            <v-text-field
+              outlined
+              class="text"
+              v-model="name"
+              :counter="20"
+              label="Name"
+              :rules="nameRules"
+            ></v-text-field>
             <v-text-field
               outlined
               class="text"
@@ -28,7 +35,14 @@
               @click:append="show1 = !show1"
               required
             ></v-text-field>
-            <v-autocomplete dark outlined class="text" v-model="country" label="Country"></v-autocomplete>
+            <v-autocomplete
+              dark
+              outlined
+              class="text"
+              :items="getCountries"
+              v-model="country"
+              label="Country"
+            ></v-autocomplete>
             <v-checkbox
               v-model="checkbox"
               :rules="[v => !!v || 'You must agree to continue!']"
@@ -61,7 +75,14 @@
 <script>
 export default {
   name: "newAccount",
-
+  created() {
+    this.$store.dispatch("getCountries");
+  },
+  computed: {
+    getCountries() {
+      return this.$store.state.countries;
+    }
+  },
   data: () => {
     return {
       show1: false,
@@ -77,7 +98,6 @@ export default {
       passwordRules: [
         v => !!v || "Required.",
         v => v.length >= 8 || "Min 8 characters"
-        //v => "The email and password you entered don't match"
       ],
       name: "",
       nameRules: [

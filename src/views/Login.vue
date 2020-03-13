@@ -64,6 +64,9 @@
 <script>
 export default {
   name: "sign",
+  created() {
+    this.$store.dispatch("getCountries");
+  },
   data: () => ({
     show1: false,
     dialog: false,
