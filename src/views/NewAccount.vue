@@ -50,7 +50,7 @@
               required
             ></v-checkbox>
             <v-btn
-              @click="signBtnFunc"
+              @click="sendRegistry"
               :disabled="!valid"
               color="success"
               class="mr-4"
@@ -125,15 +125,15 @@ export default {
     }
   },
   methods: {
-    signBtnFunc() {
+    sendRegistry() {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
       }
-
-      this.$store.dispatch("sendSignIn", {
+      this.$store.dispatch("sendRegistry", {
         name: this.name,
-        mail: this.email,
-        password: this.password
+        email: this.email,
+        password: this.password,
+        country:this.country
       });
       this.$nextTick(function() {
         if (this.signResult) {

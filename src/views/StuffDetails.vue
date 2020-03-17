@@ -2,12 +2,26 @@
   <div>
     <v-card dark class="properties">
       <v-container>
-        <v-row class="label">Stuff name:</v-row>
-        <v-row class="property">{{getStuffDetails.name}}</v-row>
+          <v-row>
+        <v-col>
+                    <v-row  class="label">Stuff name:</v-row>
+              <v-row class="property">{{getStuffDetails.name}}</v-row>
+        </v-col>
+      <v-col>
+          <v-row class="label">Uploaded by: </v-row>
+         <v-row class="property"></v-row>
+      </v-col>
+          </v-row>
+          <v-row>
+              <v-col>
         <v-row class="label">Stuff price:</v-row>
-        <v-row class="property">{{getStuffDetails.price}}</v-row>
-        <v-row class="label">Uploaded:</v-row>
+        <v-row id="price" >{{getStuffDetails.price}}<span id="currency">{{getStuffDetails.currency}}</span></v-row>
+              </v-col>
+              <v-col>
+        <v-row class="label">Date of Upload:</v-row>
         <v-row class="property">{{getStuffDetails.date}}</v-row>
+              </v-col>
+          </v-row>
         <v-row class="label">Stuff Description:</v-row>
         <v-row class="property">{{getStuffDetails.description}}</v-row>
       </v-container>
@@ -30,14 +44,12 @@
           <v-dialog  
           v-model="dialog">
             <template>
-              <v-carousel hide-delimiters>
+              <v-carousel class="carousel">
                 <v-carousel-item 
-                height="600"
-                 width="900"
                 id="carousel" 
                 v-for="image in getImages" 
                 :key="image" 
-                   :src="image"
+                 :src="image"
                 >   
                 </v-carousel-item>
               </v-carousel>
@@ -91,6 +103,17 @@ export default {
 .properties {
   margin-bottom: 2%;
   margin-top: 2%;
+  margin: 2%;
 }
+
+#price {
+    font-size:150%;
+}
+
+#currency{
+    color:#ff6802;
+    margin-left: 2%;
+}
+
 </style>
 

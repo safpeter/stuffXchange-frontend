@@ -16,7 +16,6 @@
               :counter="20"
               :rules="nameRules"
               label="Name"
-              required
             ></v-text-field>
             <v-text-field
               class="text"
@@ -91,12 +90,15 @@ export default {
   }),
   methods: {
     loginBtnFunc() {
-      this.$store.dispatch("getUserName", this.name);
-      this.$store.dispatch("sendLogin", {
-        username: this.name,
-        password: this.password
-      });
-    },
+      let promise = new Promise((resolve) => {
+        resolve(this.$store.dispatch("sendLogin",{
+        username: this.name, 
+        password: this.password,
+      }))
+      })
+      promise.then( () => this.$router.push("/mystuff"),
+                            window.localStorage.setItem("username",this.name)
+                            )},
     newAccountBtn() {
       this.$router.push("/newAccount");
     }

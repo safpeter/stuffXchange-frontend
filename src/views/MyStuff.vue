@@ -19,9 +19,10 @@
           max-width="270"
           justify="center"
         >
-          <v-img :src="stuff.mainPicture" height="70%" width="100%"></v-img>
-          <v-card-title>{{stuff.name}}</v-card-title>
-          <v-card-subtitle>{{stuff.price}}</v-card-subtitle>
+          <v-img :src="stuff.mainPicture" height="75%" width="100%"></v-img>
+           <p v-if="stuff.name.length > 20" class="card-title">{{stuff.name.slice(0,20)}}<span>...</span></p>
+           <p v-else class="card-title">{{stuff.name}}</p>
+          <p class="price">{{stuff.price}}<span id="currency">{{stuff.currency}}</span></p>
         </v-card>
       </v-row>
        </v-card>
@@ -77,4 +78,20 @@ export default {
 .cards{
   margin-bottom: 1%;
 }
+
+.card-title {
+    margin-left: 2%;
+    margin-top: 2%;
+    margin-bottom: 0%;
+    font-size: 110%;
+}
+
+#currency{
+  margin-left: 2%;
+}
+
+.price {
+  margin-left: 2%;
+}
+
 </style>

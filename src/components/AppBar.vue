@@ -51,13 +51,18 @@ export default {
       items: [
       { icon: "mdi-account", text: "My Profile", route:"profile" },
       { icon: "mdi-cash-multiple", text: "My Stuff", route:"mystuff"},
+      { icon: "mdi-email", text: "Notifications", route:"notifications"},
       { icon: "mdi-magnify-plus", text: "Advanced Search", route:"search" },
-      { icon: "mdi-logout", text: "Log out" }
+      { icon: "mdi-logout", text: "Log out", route:"" }
     ],
   }), 
   methods: {
     gotoRoute(route){
       this.$router.push("/" + route);
+      if (route == ""){
+        window.localStorage.removeItem("token");
+        window.localStorage.removeItem("username");
+      }
     }
   }
 }

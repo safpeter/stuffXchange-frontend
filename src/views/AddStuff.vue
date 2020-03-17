@@ -117,9 +117,12 @@ export default {
       const data = new FormData();
       data.set("name", this.stuffName);
       data.set("price", this.stuffPrice);
+      data.set("currency", this.stuffCurrency);
       data.set("description", this.stuffDescription);
       this.imagesToUpload.forEach(i => data.append("images", i));
       this.$store.dispatch("uploadStuff", data);
+      console.log(this.stuffCurrency)
+      console.log(this.stuffPrice);
     }
   }
 };
