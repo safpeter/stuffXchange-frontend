@@ -2,14 +2,27 @@
   <div>
     <v-card dark class="properties">
       <v-container>
+          <v-row >
+              <v-col>
+              <v-btn @click="deleteStuff" class="icons" color="transparent" depressed>
+                  <v-icon large>mdi-delete</v-icon>Delete Stuff
+              </v-btn>
+              </v-col>
+          <v-col>
+              <v-btn class="icons" color="transparent" depressed>
+                  <v-icon large>mdi-update</v-icon>Update Stuff
+              </v-btn>
+          </v-col>
+          </v-row>
+      
           <v-row>
         <v-col>
-                    <v-row  class="label">Stuff name:</v-row>
+            <v-row  class="label">Stuff name:</v-row>
               <v-row class="property">{{getStuffDetails.name}}</v-row>
         </v-col>
       <v-col>
           <v-row class="label">Uploaded by: </v-row>
-         <v-row class="property"></v-row>
+         <v-row class="property"><v-btn color="transparent" depressed >{{getStuffDetails.user.name}} from {{getStuffDetails.user.country}}</v-btn></v-row>
       </v-col>
           </v-row>
           <v-row>
@@ -63,6 +76,10 @@
 
 <script>
 export default {
+    created(){
+      this.$store.dispatch("getAllImage", window.sessionStorage.getItem("id"));
+      this.$store.dispatch("getStuffDetails", window.sessionStorage.getItem("id"));
+    },
   data: () => ({
     dialog: false
   }),
@@ -74,11 +91,12 @@ export default {
       return this.$store.state.images;
     }
   },
-//   methods: {
-//     //   getPicture(event){
-//     //       let target = event.target;
-//     //   }
-//   }
+  methods:{
+      deleteStuff(){
+          this.$store.dispatch("deleteStuff",window.sessionStorage.getItem("id"))
+          this.$router.push("/mystuff")
+      }
+  }
 };
 </script>
 
@@ -104,6 +122,7 @@ export default {
   margin-bottom: 2%;
   margin-top: 2%;
   margin: 2%;
+  padding: 1%;
 }
 
 #price {
@@ -111,8 +130,12 @@ export default {
 }
 
 #currency{
-    color:#ff6802;
     margin-left: 2%;
+}
+
+.icons {
+    font-size: 120%;
+    color: #ff6802;
 }
 
 </style>

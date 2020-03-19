@@ -119,10 +119,10 @@ export default {
       data.set("price", this.stuffPrice);
       data.set("currency", this.stuffCurrency);
       data.set("description", this.stuffDescription);
+      data.set("username", window.localStorage.getItem("username"));
       this.imagesToUpload.forEach(i => data.append("images", i));
       this.$store.dispatch("uploadStuff", data);
-      console.log(this.stuffCurrency)
-      console.log(this.stuffPrice);
+      this.$router.push("/mystuff")
     }
   }
 };

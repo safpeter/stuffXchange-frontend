@@ -1,6 +1,6 @@
 <template>
   <v-container dark>
-    <v-card class="mx-auto" md dark>
+    <v-card class="card" md dark>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-row justify="center" class="text">Create New Account</v-row>
         <v-row justify="center">
@@ -148,9 +148,11 @@ export default {
 </script>
 
 <style scoped>
-.mx-auto {
+.card {
   background-color: #424242;
-  padding: 3%;
+  padding: 1%;
+  margin-left: 15%;
+  margin-right: 15%;
 }
 
 .text {

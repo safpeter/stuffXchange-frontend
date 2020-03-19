@@ -10,7 +10,7 @@
       <v-row class="text">Stuff To Sell</v-row>
       <v-row pa-2  justify="center">
         <v-card
-          v-for="stuff in getAllStuff"
+          v-for="stuff in getAllUserStuff"
           :key="stuff.id"
           @click="getDetails(stuff.id)"
           dark
@@ -28,6 +28,23 @@
        </v-card>
        <v-card class="cards" dark>
       <v-row class="text">Stuff To Buy</v-row>
+       <v-row pa-2  justify="center">
+        <v-card
+          v-for="stuff in getAllFavouriteStuff"
+          :key="stuff.id"
+          @click="getDetails(stuff.id)"
+          dark
+          class="image-cards"
+          max-height="270"
+          max-width="270"
+          justify="center"
+        >
+          <v-img :src="stuff.mainPicture" height="75%" width="100%"></v-img>
+           <p v-if="stuff.name.length > 20" class="card-title">{{stuff.name.slice(0,20)}}<span>...</span></p>
+           <p v-else class="card-title">{{stuff.name}}</p>
+          <p class="price">{{stuff.price}}<span id="currency">{{stuff.currency}}</span></p>
+        </v-card>
+      </v-row>
        </v-card>
     </v-container>
   </div>
@@ -36,11 +53,15 @@
 <script>
 export default {
   created() {
-    this.$store.dispatch("getAllStuff");
+    this.$store.dispatch("getAllUserStuff",window.localStorage.getItem("username"));
+     this.$store.dispatch("getAllFavouriteStuff",window.localStorage.getItem("username"));
   },
   computed: {
-    getAllStuff() {
-      return this.$store.state.allStuff;
+    getAllUserStuff() {
+      return this.$store.state.allUserStuff;
+    },
+    getAllFavouriteStuff() {
+            return this.$store.state.allFavouriteStuff;
     }
   },
 
@@ -52,6 +73,7 @@ export default {
       this.$store.dispatch("getAllImage", id);
       this.$store.dispatch("getStuffDetails", id);
       this.$router.push(`/stuffdetails/` + id);
+      window.sessionStorage.setItem("id",id);
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <v-container dark>
-    <v-card class="mx-auto" dark>
+    <v-card class="card" dark>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-row class="text" justify="center">Welcome to StuffX!</v-row>
         <v-row
@@ -44,12 +44,11 @@
               </v-col>
             </v-row>
             <v-dialog v-model="dialog" max-width="290">
-              <v-card>
-                <v-card-title class="headline" wrap>Login failed</v-card-title>
-                <v-card-text wrap>Name or password incorrect</v-card-text>
+              <v-card dark>
+                <v-card-title wrap>Login failed</v-card-title>
+                <v-card-text wrap>Incorrect Username or Password!</v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="green darken-1" text @click="dialog = false">Ok</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -90,15 +89,20 @@ export default {
   }),
   methods: {
     loginBtnFunc() {
-      let promise = new Promise((resolve) => {
-        resolve(this.$store.dispatch("sendLogin",{
+      let promise = new Promise((resolve)=> {
+       resolve(this.$store.dispatch("sendLogin",{
         username: this.name, 
         password: this.password,
-      }))
+        }))
       })
-      promise.then( () => this.$router.push("/mystuff"),
-                            window.localStorage.setItem("username",this.name)
-                            )},
+      promise.then(setTimeout(()=> {if(window.localStorage.getItem("token")) {
+         window.localStorage.setItem("username",this.name);
+         this.$router.push("/mystuff");
+         }else {
+            this.dialog=true
+         }
+        },1000))
+      },
     newAccountBtn() {
       this.$router.push("/newAccount");
     }
@@ -107,9 +111,11 @@ export default {
 </script>
 
 <style scoped>
-.mx-auto {
+.card{
   background-color: #424242;
-  padding: 3%;
+  padding: 1%;
+  margin-left: 15%;
+  margin-right: 15%;
 }
 
 .text {

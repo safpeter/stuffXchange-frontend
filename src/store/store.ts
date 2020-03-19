@@ -11,16 +11,22 @@ export default new Vuex.Store({
       "Authorization": "Bearer " + window.localStorage.getItem("token"),
       'Access-Control-Allow-Origin': '*'
     },
-    allStuff: [],
+    allUserStuff: [],
+    allFavouriteStuff: [],
     images: [],
     stuffDetails: [],
     countries: [],
     currencies: [],
     signResult: [],
+    userDetails : [],
+    deleteMessage:"",
   },
   mutations: {
-    setAllStuff(state, allStuff) {
-      state.allStuff = allStuff;
+    setAllUserStuff(state, allStuff) {
+      state.allUserStuff = allStuff;
+    },
+    setAllFavouriteStuff(state, allStuff) {
+      state.allFavouriteStuff = allStuff;
     },
     setImages(state, images) {
       state.images = images
@@ -40,7 +46,12 @@ export default new Vuex.Store({
     setToken(state, token) {
       window.localStorage.setItem("token", token)
     },
-
+    setUserDetails(state,details){
+      state.userDetails = details;
+    },
+    setDeleteResponse(state, message){
+      state.deleteMessage = message;
+    }
   },
   actions: {
     uploadStuff(context, stuff) {
@@ -48,31 +59,50 @@ export default new Vuex.Store({
         method: "post",
         url: "http://localhost:9000/uploadstuff",
         data: stuff,
-        headers: this.state.headers
-      })
-    },
-    getAllStuff(context) {
-      axios({
-        method: "get",
-        url: "http://localhost:9000/getallstuff", 
         headers:{
           "Authorization": "Bearer " + window.localStorage.getItem("token"),
           'Access-Control-Allow-Origin': '*'
         },   
-      }).then(response => context.commit("setAllStuff", response.data))
+                })
+    },
+    getAllUserStuff(context,username) {
+      axios({
+        method: "get",
+        url: `http://localhost:9000/getalluserstuff/${username}`,
+        headers:{
+          "Authorization": "Bearer " + window.localStorage.getItem("token"),
+          'Access-Control-Allow-Origin': '*'
+        },   
+      }).then(response => context.commit("setAllUserStuff", response.data))
+    },
+    getAllFavouriteStuff(context,username) {
+      axios({
+        method: "get",
+        url: `http://localhost:9000/getallfavouritestuff/${username}`,
+        headers:{
+          "Authorization": "Bearer " + window.localStorage.getItem("token"),
+          'Access-Control-Allow-Origin': '*'
+        },   
+      }).then(response => context.commit("setAllFavouriteStuff", response.data))
     },
     getAllImage(context, id) {
       axios({
         method: "get",
         url: `http://localhost:9000/getimages/${id}`,
-        headers: this.state.headers
+        headers:{
+          "Authorization": "Bearer " + window.localStorage.getItem("token"),
+          'Access-Control-Allow-Origin': '*'
+        },   
       }).then(response => context.commit("setImages", response.data))
     },
     getStuffDetails(context, id) {
       axios({
         method: "get",
         url: `http://localhost:9000/stuffdetails/${id}`,
-        headers: this.state.headers
+        headers:{
+          "Authorization": "Bearer " + window.localStorage.getItem("token"),
+          'Access-Control-Allow-Origin': '*'
+        },   
       }).then(response => context.commit("setStuffDetails", response.data))
     },
     getCountries(context) {
@@ -85,7 +115,10 @@ export default new Vuex.Store({
       axios({
         method: "get",
         url: `http://localhost:9000/getcurrencies`,
-       headers:this.state.headers,
+        headers:{
+          "Authorization": "Bearer " + window.localStorage.getItem("token"),
+          'Access-Control-Allow-Origin': '*'
+        },   
       }).then(response => context.commit("setCurrencies", response.data))
     },
     sendRegistry(context, data) {
@@ -100,9 +133,31 @@ export default new Vuex.Store({
         method: "post",
         url: `http://localhost:9000/auth/login`,
         data: data,
-      }).then(response => context.commit("setToken",response.data.token))
+      }).then(response => (context.commit("setToken",response.data.token))
+      )
     },
+    getUserDetails(context,username){
+      axios({
+        method:"get",
+        url: `http://localhost:9000/getuserdetails/${username}`,
+        headers:{
+          "Authorization": "Bearer " + window.localStorage.getItem("token"),
+          'Access-Control-Allow-Origin': '*'
+        },   
+      }).then(response => context.commit("setUserDetails", response.data))
+    },
+    deleteStuff(context, id){
+      axios({
+      method:"delete",
+      url: `http://localhost:9000/deletestuff/${id}`,
+      headers:{
+        "Authorization": "Bearer " + window.localStorage.getItem("token"),
+        'Access-Control-Allow-Origin': '*'
+      },
+      }).then(response => context.commit("setDeleteResponse", response.data))
+      
 
+    }
   },
 
   modules: {}

@@ -16,8 +16,8 @@
         <v-text-field :disabled="!isEditing" color="white" label="Password"></v-text-field>
         <v-autocomplete
           :disabled="!isEditing"
-          :items="states"
           :filter="customFilter"
+          :items="getCountries"
           color="white"
           item-text="name"
           label="Country"
@@ -47,16 +47,20 @@ export default {
       hasSaved: false,
       isEditing: null,
       model: null,
-      states: [
-        { name: "Florida", abbr: "FL", id: 1 },
-        { name: "Georgia", abbr: "GA", id: 2 },
-        { name: "Nebraska", abbr: "NE", id: 3 },
-        { name: "California", abbr: "CA", id: 4 },
-        { name: "New York", abbr: "NY", id: 5 }
-      ]
+      username:window.localStorage.getItem("username"),
     };
   },
-
+  created(){
+    this.$store.dispatch("getUserDetails",this.username)
+  },
+  computed:{
+    getUserDetails(){
+      return this.$store.state.getUserDetails;
+    },
+      getCountries() {
+      return this.$store.state.countries;
+    }
+  },
   methods: {
     customFilter(item, queryText) {
       const textOne = item.name.toLowerCase();
