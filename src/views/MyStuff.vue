@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container>
-    <v-card class="cards" dark justify="center" > 
+    <v-card class="cards" dark justify="center"> 
       <v-row justify="center">
         <v-btn @click="goToAddStuff" id="btn-add" color="transparent" depressed>
           <v-icon x-large>mdi-plus-box</v-icon>Add New Stuff

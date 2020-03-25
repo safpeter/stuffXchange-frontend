@@ -20,6 +20,7 @@ export default new Vuex.Store({
     signResult: [],
     userDetails : [],
     deleteMessage:"",
+    searches:[],
   },
   mutations: {
     setAllUserStuff(state, allStuff) {
@@ -51,6 +52,9 @@ export default new Vuex.Store({
     },
     setDeleteResponse(state, message){
       state.deleteMessage = message;
+    },
+    setSearches(state,searches){
+      state.searches = searches;
     }
   },
   actions: {
@@ -155,8 +159,16 @@ export default new Vuex.Store({
         'Access-Control-Allow-Origin': '*'
       },
       }).then(response => context.commit("setDeleteResponse", response.data))
-      
-
+    },
+    getSearch(context, search){
+      axios({
+        method:"get",
+        url:`http://localhost:9000/getsearch/${search}`,
+        headers:{
+         "Authorization": "Bearer " + window.localStorage.getItem("token"),
+        'Access-Control-Allow-Origin': '*'
+        }
+      }).then(response => context.commit("setSearches",response.data))
     }
   },
 

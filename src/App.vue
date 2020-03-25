@@ -1,13 +1,11 @@
  
 <template>
   <v-app id="app">
-  <AppBar> </AppBar>  
+  <AppBar id="appbar"> </AppBar>  
   <v-content>
          <router-view> 
-     <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-parallax>
          </router-view >
     </v-content>
-     
   </v-app>
 </template>
 
@@ -16,8 +14,8 @@ import AppBar from "@/components/AppBar"
 
 export default {
   name: "App", 
-  components: {AppBar}, 
- 
+  components: {AppBar},
+  
 }
 </script>
 <style scoped >

@@ -96,8 +96,8 @@ export default {
         }))
       })
       promise.then(setTimeout(()=> {if(window.localStorage.getItem("token")) {
-         window.localStorage.setItem("username",this.name);
-         this.$router.push("/mystuff");
+         window.localStorage.setItem("username",this.name)
+       this.$router.push("/mystuff") 
          }else {
             this.dialog=true
          }
@@ -116,6 +116,7 @@ export default {
   padding: 1%;
   margin-left: 15%;
   margin-right: 15%;
+  margin-top: 5%;
 }
 
 .text {

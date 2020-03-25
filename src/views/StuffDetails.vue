@@ -2,7 +2,7 @@
   <div>
     <v-card dark class="properties">
       <v-container>
-          <v-row >
+          <v-row v-if="this.getStuffDetails.user.name === this.usernameInStorage">
               <v-col>
               <v-btn @click="deleteStuff" class="icons" color="transparent" depressed>
                   <v-icon large>mdi-delete</v-icon>Delete Stuff
@@ -14,15 +14,27 @@
               </v-btn>
           </v-col>
           </v-row>
+           <v-row v-else>
+              <v-col>
+              <v-btn  class="icons" color="transparent" depressed>
+                  <v-icon large>mdi-email</v-icon>Send Message
+              </v-btn>
+              </v-col>
+          <v-col>
+              <v-btn class="icons" color="transparent" depressed>
+                  <v-icon large>mdi-star</v-icon>Mark as Favourite
+              </v-btn>
+          </v-col>
+          </v-row>
       
           <v-row>
         <v-col>
             <v-row  class="label">Stuff name:</v-row>
               <v-row class="property">{{getStuffDetails.name}}</v-row>
         </v-col>
-      <v-col>
+      <v-col v-if="this.getStuffDetails.user.name != this.usernameInStorage">
           <v-row class="label">Uploaded by: </v-row>
-         <v-row class="property"><v-btn color="transparent" depressed >{{getStuffDetails.user.name}} from {{getStuffDetails.user.country}}</v-btn></v-row>
+         <v-row id="username" class="property"><v-btn color="transparent" depressed >{{getStuffDetails.user.name}} from {{getStuffDetails.user.country}}</v-btn></v-row>
       </v-col>
           </v-row>
           <v-row>
@@ -57,7 +69,7 @@
           <v-dialog  
           v-model="dialog">
             <template>
-              <v-carousel class="carousel">
+              <v-carousel  class="carousel">
                 <v-carousel-item 
                 id="carousel" 
                 v-for="image in getImages" 
@@ -81,7 +93,8 @@ export default {
       this.$store.dispatch("getStuffDetails", window.sessionStorage.getItem("id"));
     },
   data: () => ({
-    dialog: false
+    dialog: false,
+    usernameInStorage:window.localStorage.getItem("username"),
   }),
   computed: {
     getStuffDetails() {
@@ -94,13 +107,15 @@ export default {
   methods:{
       deleteStuff(){
           this.$store.dispatch("deleteStuff",window.sessionStorage.getItem("id"))
-          this.$router.push("/mystuff")
+            .then(this.$router.push("/mystuff")
+)
       }
   }
 };
 </script>
 
 <style scoped>
+
 .label {
   color: #ff6802;
   text-decoration: underline;
@@ -136,6 +151,10 @@ export default {
 .icons {
     font-size: 120%;
     color: #ff6802;
+}
+
+#username{
+  text-decoration: underline;
 }
 
 </style>
