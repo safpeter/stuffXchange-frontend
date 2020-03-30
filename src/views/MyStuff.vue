@@ -1,51 +1,69 @@
 <template>
   <div>
     <v-container>
-    <v-card class="cards" dark justify="center"> 
-      <v-row justify="center">
-        <v-btn @click="goToAddStuff" id="btn-add" color="transparent" depressed>
-          <v-icon x-large>mdi-plus-box</v-icon>Add New Stuff
-        </v-btn>
-      </v-row>
-      <v-row class="text">Stuff To Sell</v-row>
-      <v-row pa-2  justify="center">
-        <v-card
-          v-for="stuff in getAllUserStuff"
-          :key="stuff.id"
-          @click="getDetails(stuff.id)"
-          dark
-          class="image-cards"
-          max-height="270"
-          max-width="270"
-          justify="center"
-        >
-          <v-img :src="stuff.mainPicture" height="75%" width="100%"></v-img>
-           <p v-if="stuff.name.length > 20" class="card-title">{{stuff.name.slice(0,20)}}<span>...</span></p>
-           <p v-else class="card-title">{{stuff.name}}</p>
-          <p class="price">{{stuff.price}}<span id="currency">{{stuff.currency}}</span></p>
-        </v-card>
-      </v-row>
-       </v-card>
-       <v-card class="cards" dark>
-      <v-row class="text">Stuff To Buy</v-row>
-       <v-row pa-2  justify="center">
-        <v-card
-          v-for="stuff in getAllFavouriteStuff"
-          :key="stuff.id"
-          @click="getDetails(stuff.id)"
-          dark
-          class="image-cards"
-          max-height="270"
-          max-width="270"
-          justify="center"
-        >
-          <v-img :src="stuff.mainPicture" height="75%" width="100%"></v-img>
-           <p v-if="stuff.name.length > 20" class="card-title">{{stuff.name.slice(0,20)}}<span>...</span></p>
-           <p v-else class="card-title">{{stuff.name}}</p>
-          <p class="price">{{stuff.price}}<span id="currency">{{stuff.currency}}</span></p>
-        </v-card>
-      </v-row>
-       </v-card>
+      <v-card class="cards" dark justify="center">
+        <v-row justify="center">
+          <v-btn @click="goToAddStuff" id="btn-add" color="transparent" depressed>
+            <v-icon x-large>mdi-plus-box</v-icon>Add New Stuff
+          </v-btn>
+        </v-row>
+        <v-row class="text">Stuff To Sell</v-row>
+        <v-row pa-2 justify="center" v-if="getAllUserStuff.length == 0">
+          <p id="btn-add">There is no stuff you want to sell!</p>
+        </v-row>
+        <v-row pa-2 justify="center" v-else>
+          <v-card
+            v-for="stuff in getAllUserStuff"
+            :key="stuff.id"
+            @click="getDetails(stuff.id)"
+            dark
+            class="image-cards"
+            max-height="270"
+            max-width="270"
+            justify="center"
+          >
+            <v-img :src="stuff.mainPicture" height="75%" width="100%"></v-img>
+            <p v-if="stuff.name.length > 20" class="card-title">
+              {{stuff.name.slice(0,20)}}
+              <span>...</span>
+            </p>
+            <p v-else class="card-title">{{stuff.name}}</p>
+            <p class="price">
+              {{stuff.price}}
+              <span id="currency">{{stuff.currency}}</span>
+            </p>
+          </v-card>
+        </v-row>
+      </v-card>
+      <v-card class="cards" dark>
+        <v-row class="text">Stuff To Buy</v-row>
+        <v-row pa-2 justify="center" v-if="getAllFavouriteStuff.length == 0">
+          <p  id="btn-add">There is no stuff you are interested in!</p>
+        </v-row>
+        <v-row pa-2 justify="center" v-else>
+          <v-card
+            v-for="stuff in getAllFavouriteStuff"
+            :key="stuff.id"
+            @click="getDetails(stuff.id)"
+            dark
+            class="image-cards"
+            max-height="270"
+            max-width="270"
+            justify="center"
+          >
+            <v-img :src="stuff.mainPicture" height="75%" width="100%"></v-img>
+            <p v-if="stuff.name.length > 20" class="card-title">
+              {{stuff.name.slice(0,20)}}
+              <span>...</span>
+            </p>
+            <p v-else class="card-title">{{stuff.name}}</p>
+            <p class="price">
+              {{stuff.price}}
+              <span id="currency">{{stuff.currency}}</span>
+            </p>
+          </v-card>
+        </v-row>
+      </v-card>
     </v-container>
   </div>
 </template>
@@ -53,15 +71,21 @@
 <script>
 export default {
   created() {
-    this.$store.dispatch("getAllUserStuff",window.localStorage.getItem("username"));
-     this.$store.dispatch("getAllFavouriteStuff",window.localStorage.getItem("username"));
+    this.$store.dispatch(
+      "getAllUserStuff",
+      window.localStorage.getItem("username")
+    );
+    this.$store.dispatch(
+      "getAllFavouriteStuff",
+      window.localStorage.getItem("username")
+    );
   },
   computed: {
     getAllUserStuff() {
       return this.$store.state.allUserStuff;
     },
     getAllFavouriteStuff() {
-            return this.$store.state.allFavouriteStuff;
+      return this.$store.state.allFavouriteStuff;
     }
   },
 
@@ -73,7 +97,7 @@ export default {
       this.$store.dispatch("getAllImage", id);
       this.$store.dispatch("getStuffDetails", id);
       this.$router.push(`/stuffdetails/` + id);
-      window.sessionStorage.setItem("id",id);
+      window.sessionStorage.setItem("id", id);
     }
   }
 };
@@ -88,7 +112,7 @@ export default {
 }
 
 #btn-add {
-  padding: 2%;
+  padding: 1%;
   font-size: 130%;
   color: #ff6802;
 }
@@ -97,18 +121,18 @@ export default {
   margin: 0.5%;
 }
 
-.cards{
+.cards {
   margin-bottom: 1%;
 }
 
 .card-title {
-    margin-left: 2%;
-    margin-top: 2%;
-    margin-bottom: 0%;
-    font-size: 110%;
+  margin-left: 2%;
+  margin-top: 2%;
+  margin-bottom: 0%;
+  font-size: 110%;
 }
 
-#currency{
+#currency {
   margin-left: 2%;
 }
 

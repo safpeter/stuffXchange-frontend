@@ -40,6 +40,11 @@ const routes = [
     name: "stuffdetails",
     component: () => import("@/views/StuffDetails.vue")
   },
+  {
+    path: "/userdetails/:name",
+    name: "userdetails",
+    component: () => import("@/views/UserDetails.vue")
+  },
 ];
 
 const router = new VueRouter({

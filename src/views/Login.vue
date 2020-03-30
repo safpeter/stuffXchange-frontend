@@ -97,11 +97,12 @@ export default {
       })
       promise.then(setTimeout(()=> {if(window.localStorage.getItem("token")) {
          window.localStorage.setItem("username",this.name)
+         console.log()
        this.$router.push("/mystuff") 
          }else {
             this.dialog=true
          }
-        },1000))
+        },2000))
       },
     newAccountBtn() {
       this.$router.push("/newAccount");

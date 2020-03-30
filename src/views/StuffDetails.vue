@@ -2,51 +2,75 @@
   <div>
     <v-card dark class="properties">
       <v-container>
-          <v-row v-if="this.getStuffDetails.user.name === this.usernameInStorage">
-              <v-col>
-              <v-btn @click="deleteStuff" class="icons" color="transparent" depressed>
-                  <v-icon large>mdi-delete</v-icon>Delete Stuff
-              </v-btn>
-              </v-col>
+        <v-row v-if="this.getStuffDetails.user.name === this.usernameInStorage">
           <v-col>
-              <v-btn class="icons" color="transparent" depressed>
-                  <v-icon large>mdi-update</v-icon>Update Stuff
-              </v-btn>
+            <v-btn @click="deleteStuff" class="icons" color="transparent" depressed>
+              <v-icon large>mdi-delete</v-icon>Delete Stuff
+            </v-btn>
           </v-col>
-          </v-row>
-           <v-row v-else>
-              <v-col>
-              <v-btn  class="icons" color="transparent" depressed>
-                  <v-icon large>mdi-email</v-icon>Send Message
-              </v-btn>
-              </v-col>
           <v-col>
-              <v-btn class="icons" color="transparent" depressed>
-                  <v-icon large>mdi-star</v-icon>Mark as Favourite
-              </v-btn>
+            <v-btn class="icons" color="transparent" depressed>
+              <v-icon large>mdi-update</v-icon>Update Stuff
+            </v-btn>
           </v-col>
-          </v-row>
-      
-          <v-row>
-        <v-col>
-            <v-row  class="label">Stuff name:</v-row>
-              <v-row class="property">{{getStuffDetails.name}}</v-row>
-        </v-col>
-      <v-col v-if="this.getStuffDetails.user.name != this.usernameInStorage">
-          <v-row class="label">Uploaded by: </v-row>
-         <v-row id="username" class="property"><v-btn color="transparent" depressed >{{getStuffDetails.user.name}} from {{getStuffDetails.user.country}}</v-btn></v-row>
-      </v-col>
-          </v-row>
-          <v-row>
-              <v-col>
-        <v-row class="label">Stuff price:</v-row>
-        <v-row id="price" >{{getStuffDetails.price}}<span id="currency">{{getStuffDetails.currency}}</span></v-row>
-              </v-col>
-              <v-col>
-        <v-row class="label">Date of Upload:</v-row>
-        <v-row class="property">{{getStuffDetails.date}}</v-row>
-              </v-col>
-          </v-row>
+        </v-row>
+        <v-row v-else>
+          <v-col>
+            <v-btn class="icons" color="transparent" depressed>
+              <v-icon large>mdi-email</v-icon>Send Message
+            </v-btn>
+          </v-col>
+          <v-col>
+            <v-btn
+              @click="markAsFavourite"
+              id="unmarked"
+              class="icons"
+              color="transparent"
+              depressed
+            >
+              <v-icon large>mdi-star-outline</v-icon>Mark as Favourite
+            </v-btn>
+            <v-btn
+              @click="unMarkAsFavourite"
+              id="marked"
+              class="icons"
+              color="transparent"
+              depressed
+            >
+              <v-icon large>mdi-star</v-icon>Marked as Favourite
+            </v-btn>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
+            <v-row class="label">Stuff name:</v-row>
+            <v-row class="property">{{getStuffDetails.name}}</v-row>
+          </v-col>
+          <v-col v-if="this.getStuffDetails.user.name != this.usernameInStorage">
+            <v-row class="label">Uploaded by:</v-row>
+            <v-row id="username" class="property">
+              <v-btn
+                @click="goToUserDetails(getStuffDetails.user.name)"
+                color="transparent"
+                depressed
+              >{{getStuffDetails.user.name}} from {{getStuffDetails.user.country}}</v-btn>
+            </v-row>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-row class="label">Stuff price:</v-row>
+            <v-row id="price">
+              {{getStuffDetails.price}}
+              <span id="currency">{{getStuffDetails.currency}}</span>
+            </v-row>
+          </v-col>
+          <v-col>
+            <v-row class="label">Date of Upload:</v-row>
+            <v-row class="property">{{getStuffDetails.date}}</v-row>
+          </v-col>
+        </v-row>
         <v-row class="label">Stuff Description:</v-row>
         <v-row class="property">{{getStuffDetails.description}}</v-row>
       </v-container>
@@ -60,23 +84,12 @@
             class="images"
             @click.stop="dialog = true"
           >
-            <v-img  
-            :src="image" 
-            height="200"
-             width="200" 
-             display="inline"></v-img>
+            <v-img :src="image" height="200" width="200" display="inline"></v-img>
           </v-card>
-          <v-dialog  
-          v-model="dialog">
+          <v-dialog v-model="dialog">
             <template>
-              <v-carousel  class="carousel">
-                <v-carousel-item 
-                id="carousel" 
-                v-for="image in getImages" 
-                :key="image" 
-                 :src="image"
-                >   
-                </v-carousel-item>
+              <v-carousel class="carousel">
+                <v-carousel-item id="carousel" v-for="image in getImages" :key="image" :src="image"></v-carousel-item>
               </v-carousel>
             </template>
           </v-dialog>
@@ -88,13 +101,17 @@
 
 <script>
 export default {
-    created(){
-      this.$store.dispatch("getAllImage", window.sessionStorage.getItem("id"));
-      this.$store.dispatch("getStuffDetails", window.sessionStorage.getItem("id"));
-    },
+  created() {
+    this.$store.dispatch("getAllImage", window.sessionStorage.getItem("id"));
+    this.$store.dispatch(
+      "getStuffDetails",
+      window.sessionStorage.getItem("id")
+    );
+  },
   data: () => ({
     dialog: false,
-    usernameInStorage:window.localStorage.getItem("username"),
+    usernameInStorage: window.localStorage.getItem("username"),
+    stuffIdInStorage: window.sessionStorage.getItem("id")
   }),
   computed: {
     getStuffDetails() {
@@ -104,18 +121,34 @@ export default {
       return this.$store.state.images;
     }
   },
-  methods:{
-      deleteStuff(){
-          this.$store.dispatch("deleteStuff",window.sessionStorage.getItem("id"))
-            .then(this.$router.push("/mystuff")
-)
-      }
+  methods: {
+    deleteStuff() {
+      this.$store.dispatch("deleteStuff", this.stuffIdInStorage);
+      this.$store
+        .dispatch("getAllUserStuff", this.usernameInStorage)
+        .then(this.$router.push("/mystuff"));
+    },
+    markAsFavourite() {
+      this.$store.dispatch("markAsFavourite", {
+        username: this.usernameInStorage,
+        stuffId: this.stuffIdInStorage
+      });
+      document.querySelector("#marked").style.display = "block";
+      document.querySelector("#unmarked").style.display = "none";
+    },
+    unMarkAsFavourite() {
+      document.querySelector("#unmarked").style.display = "block";
+      document.querySelector("#marked").style.display = "none";
+    },
+    goToUserDetails(stuffuser) {
+      window.sessionStorage.setItem("stuffuser", stuffuser);
+      this.$router.push("/userdetails/" + stuffuser);
+    }
   }
 };
 </script>
 
 <style scoped>
-
 .label {
   color: #ff6802;
   text-decoration: underline;
@@ -141,21 +174,24 @@ export default {
 }
 
 #price {
-    font-size:150%;
+  font-size: 150%;
 }
 
-#currency{
-    margin-left: 2%;
+#currency {
+  margin-left: 2%;
 }
 
 .icons {
-    font-size: 120%;
-    color: #ff6802;
+  font-size: 120%;
+  color: #ff6802;
 }
 
-#username{
+#username {
   text-decoration: underline;
 }
 
+#marked {
+  display: none;
+}
 </style>
 
