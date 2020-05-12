@@ -1,6 +1,9 @@
 <template>
   <v-container dark>
     <v-card class="card" md dark>
+      <v-row justify="center">
+          <v-img id="logo" src="@/assets/logo-StuffX.png" max-height="10%" max-width="30%"></v-img>
+      </v-row>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-row justify="center" class="text">Create New Account</v-row>
         <v-row justify="center">
@@ -148,6 +151,11 @@ export default {
 </script>
 
 <style scoped>
+#logo{
+  padding:0% !important;
+  margin:-8%;
+}
+
 .card {
   background-color: #424242;
   padding: 1%;
@@ -159,5 +167,9 @@ export default {
 .text {
   color: #ff6802 !important;
   font-size: 110%;
+}
+
+#header {
+  margin:2% ;
 }
 </style>

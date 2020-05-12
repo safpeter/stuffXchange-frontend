@@ -2,7 +2,24 @@
   <div>
     <v-card dark class="properties">
       <v-container>
-        <v-row v-if="this.getStuffDetails.user.name === this.usernameInStorage">
+         <v-row v-if=" this.role === 'admin' ">
+            <v-col>
+            <v-btn class="icons" color="transparent" depressed>
+              <v-icon large>mdi-email</v-icon>Send Message
+            </v-btn>
+          </v-col>
+           <v-col>
+            <v-btn class="icons" color="transparent" depressed>
+              <v-icon large>mdi-block-helper</v-icon>Block Stuff
+            </v-btn>
+          </v-col>
+          <v-col>
+            <v-btn @click="deleteStuff" class="icons" color="transparent" depressed>
+              <v-icon large>mdi-delete</v-icon>Delete Stuff
+            </v-btn>
+          </v-col>
+        </v-row>
+        <v-row v-else-if="this.getStuffDetails.user.name === this.usernameInStorage">
           <v-col>
             <v-btn @click="deleteStuff" class="icons" color="transparent" depressed>
               <v-icon large>mdi-delete</v-icon>Delete Stuff
@@ -21,24 +38,24 @@
             </v-btn>
           </v-col>
           <v-col>
-            <v-btn
-              @click="markAsFavourite"
-              id="unmarked"
-              class="icons"
-              color="transparent"
-              depressed
-            >
-              <v-icon large>mdi-star-outline</v-icon>Mark as Favourite
-            </v-btn>
-            <v-btn
-              @click="unMarkAsFavourite"
-              id="marked"
-              class="icons"
-              color="transparent"
-              depressed
-            >
-              <v-icon large>mdi-star</v-icon>Marked as Favourite
-            </v-btn>
+              <v-btn
+                @click="markAsFavourite"
+                id="unmarked"
+                class="icons"
+                color="transparent"
+                depressed
+              >
+                <v-icon large>mdi-star-outline</v-icon>Mark as Favourite
+              </v-btn>
+              <v-btn
+                @click="unMarkAsFavourite"
+                id="marked"
+                class="icons"
+                color="transparent"
+                depressed
+              >
+                <v-icon large>mdi-star</v-icon>Marked as Favourite
+              </v-btn>
           </v-col>
         </v-row>
 
@@ -82,7 +99,8 @@
             v-for="image in getImages"
             :key="image"
             class="images"
-            @click.stop="dialog = true"
+            @click.stop="dialog = true" 
+            @click="doThis(e)"
           >
             <v-img :src="image" height="200" width="200" display="inline"></v-img>
           </v-card>
@@ -111,7 +129,8 @@ export default {
   data: () => ({
     dialog: false,
     usernameInStorage: window.localStorage.getItem("username"),
-    stuffIdInStorage: window.sessionStorage.getItem("id")
+    stuffIdInStorage: window.sessionStorage.getItem("id"),
+    role: window.localStorage.getItem("role")
   }),
   computed: {
     getStuffDetails() {
@@ -123,10 +142,10 @@ export default {
   },
   methods: {
     deleteStuff() {
-      this.$store.dispatch("deleteStuff", this.stuffIdInStorage);
-      this.$store
-        .dispatch("getAllUserStuff", this.usernameInStorage)
-        .then(this.$router.push("/mystuff"));
+      this.$store.dispatch("deleteStuff", {
+        id :this.stuffIdInStorage,
+        username: this.usernameInStorage})
+        .then(setTimeout(() => this.$router.push("/mystuff"),1000));
     },
     markAsFavourite() {
       this.$store.dispatch("markAsFavourite", {
@@ -191,7 +210,7 @@ export default {
 }
 
 #marked {
-  display: none;
+  display:none;
 }
 </style>
 

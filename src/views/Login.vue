@@ -1,12 +1,17 @@
 <template>
+<div>
   <v-container dark>
     <v-card class="card" dark>
+      <v-row justify="center">
+          <v-img id=logo src="@/assets/logo-StuffX.png" max-height="100%" max-width="30%"></v-img>
+      </v-row>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-row class="text" justify="center">Welcome to StuffX!</v-row>
         <v-row
           class="text"
           justify="center"
-        >Enter your Username and Password to log in or create a new account!</v-row>
+        >Enter your Username and Password to log in 
+         or create a new account!</v-row>
         <v-row justify="center">
           <v-col cols="12" sm="10" md="8" lg="10">
             <v-text-field
@@ -57,6 +62,7 @@
       </v-form>
     </v-card>
   </v-container>
+</div>
 </template>
 
 <script>
@@ -95,10 +101,11 @@ export default {
         password: this.password,
         }))
       })
-      promise.then(setTimeout(()=> {if(window.localStorage.getItem("token")) {
-         window.localStorage.setItem("username",this.name)
-         console.log()
-       this.$router.push("/mystuff") 
+      promise.then(setTimeout(() => {if(window.localStorage.getItem("token")) {
+         window.localStorage.setItem("username",this.name);
+         this.$store.dispatch("getUserDetails",this.name).then( 
+           window.localStorage.setItem("role",  this.$store.state.userDetails.roles[0])).then(
+              this.$router.push("/mystuff"));
          }else {
             this.dialog=true
          }
@@ -112,6 +119,11 @@ export default {
 </script>
 
 <style scoped>
+#logo{
+  padding:0% !important;
+  margin:-8%;
+}
+
 .card{
   background-color: #424242;
   padding: 1%;
@@ -123,5 +135,6 @@ export default {
 .text {
   color: #ff6802 !important;
   font-size: 110%;
+  margin: 2%;
 }
 </style>

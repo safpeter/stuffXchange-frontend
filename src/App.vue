@@ -1,7 +1,7 @@
  
-<template>
+<template>  
   <v-app id="app">
-  <AppBar id="appbar"> </AppBar>  
+  <AppBar id="appbar" v-if="!$route.meta.hideNavigation"> </AppBar>  
   <v-content>
          <router-view> 
          </router-view >
@@ -14,20 +14,17 @@ import AppBar from "@/components/AppBar"
 
 export default {
   name: "App", 
-  components: {AppBar},
-  
+  components: {AppBar}, 
 }
-</script>
+  </script>
 <style scoped >
 @import url('https://fonts.googleapis.com/css?family=Sen&display=swap');
 
 #app {
-  background-color:#33312E !important;
+  background-color:gray !important;
   background-repeat: repeat;
   font-size: 110%;
   font-family:'Sen',sans-serif;   
-
 }
-
 
 </style>

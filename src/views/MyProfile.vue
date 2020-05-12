@@ -3,7 +3,7 @@
     <v-card class="mx-auto" color="dark" dark>
       <v-toolbar flat color="dark">
         <v-icon large class="text">mdi-account</v-icon>
-        <v-toolbar-title justify="center" class="text">{{username}}</v-toolbar-title>
+        <v-toolbar-title justify="center" class="text">{{getDetails.name}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn color="#ff6802" fab @click="isEditing = !isEditing">
           <v-icon v-if="isEditing">mdi-close</v-icon>
@@ -20,8 +20,7 @@
           :items="getCountries"
           color="white"
           item-text="name"
-          label="Country"
-        ></v-autocomplete>
+        >{{getDetails.country}}</v-autocomplete>
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
@@ -47,17 +46,18 @@ export default {
       hasSaved: false,
       isEditing: null,
       model: null,
-      username:window.localStorage.getItem("username"),
+      username: window.localStorage.getItem("username")
     };
   },
-  created(){
-    this.$store.dispatch("getUserDetails",this.username)
+  created() {
+    this.$store.dispatch("getUserDetails", this.username);
   },
-  computed:{
-    getUserDetails(){
-      return this.$store.state.getUserDetails;
+  computed: {
+    getDetails() {
+      console.log(this.$store.state.userDetails);
+      return this.$store.state.userDetails;
     },
-      getCountries() {
+    getCountries() {
       return this.$store.state.countries;
     }
   },

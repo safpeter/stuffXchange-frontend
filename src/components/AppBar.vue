@@ -1,6 +1,6 @@
  <template class=appbar>
   <nav>
-    <v-app-bar app dark clipped>
+    <v-app-bar app color="#ff6802" clipped>
       <v-img src="@/assets/logo-StuffX.png" max-height="140%" max-width="12%"></v-img>
       <v-col cols="15" sm="4" md="4" class="search-bar">
         <v-text-field
@@ -17,7 +17,7 @@
       <v-spacer></v-spacer>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
-          <v-btn depressed color="#424242" v-on="on" class="text-icon">
+          <v-btn depressed color="transparent" v-on="on" class="text-icon">
             <span id="menu">Menu</span>
             <v-icon>mdi-menu</v-icon>
           </v-btn>
@@ -65,9 +65,14 @@ export default {
     gotoRoute(route) {
       this.$router.push("/" + route);
       if (route == "") {
+        setTimeout( () => {
         window.localStorage.removeItem("token");
+         window.localStorage.removeItem("role");
         window.localStorage.removeItem("username");
-      }
+        window.sessionStorage.removeItem("stuffuser");
+         window.sessionStorage.removeItem("id");
+        window.sessionStorage.removeItem("search");
+      },1000)} 
     },
     search() {
       this.$store.dispatch("getSearch", this.searchText);
@@ -85,7 +90,7 @@ export default {
 
 .dropdown {
   width: 300px;
-  background-color: #424242;
+  background-color: #ff6802;
 }
 
 .search-bar {
@@ -98,7 +103,7 @@ export default {
 }
 
 .text-icon {
-  color: #ff6802 !important;
+  color: #33312E !important;
   font-size: 120%;
 }
 </style>

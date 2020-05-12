@@ -121,8 +121,8 @@ export default {
       data.set("description", this.stuffDescription);
       data.set("username", window.localStorage.getItem("username"));
       this.imagesToUpload.forEach(i => data.append("images", i));
-      this.$store.dispatch("uploadStuff", data);
-      this.$router.push("/mystuff")
+      this.$store.dispatch("uploadStuff", data)
+      .then(setTimeout(() =>this.$router.push("/mystuff"), 1000)); 
     }
   }
 };

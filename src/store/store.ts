@@ -152,10 +152,10 @@ export default new Vuex.Store({
         },
       }).then(response => context.commit("setUserDetails", response.data))
     },
-    deleteStuff(context, id) {
+    deleteStuff(context, data) {
       axios({
         method: "delete",
-        url: `http://localhost:9000/deletestuff/${id}`,
+        url: `http://localhost:9000/deletestuff/${data.id}/${data.username}`,
         headers: {
           "Authorization": "Bearer " + window.localStorage.getItem("token"),
           'Access-Control-Allow-Origin': '*'

@@ -9,11 +9,13 @@ const routes = [
     path: "/newaccount",
     name: "newAccount",
     component: () => import("@/views/NewAccount.vue"),
+    meta: { hideNavigation: true }
   },
   {
     path: "/",
     name: "login",
-    component: () => import("@/views/Login.vue")
+    component: () => import("@/views/Login.vue"),
+    meta: { hideNavigation: true }
   },
   {
     path: "/search/:search",
