@@ -161,7 +161,7 @@ export default {
   padding: 1%;
   margin-left: 15%;
   margin-right: 15%;
-   margin-top: 5%;
+   margin-top: 2%;
 }
 
 .text {

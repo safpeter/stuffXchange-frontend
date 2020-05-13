@@ -58,13 +58,17 @@
               </v-btn>
           </v-col>
         </v-row>
-
         <v-row>
-          <v-col>
+        <v-col >
             <v-row class="label">Stuff name:</v-row>
             <v-row class="property">{{getStuffDetails.name}}</v-row>
-          </v-col>
-          <v-col v-if="this.getStuffDetails.user.name != this.usernameInStorage">
+        <v-row class="label">Stuff price:</v-row>
+            <v-row id="price">
+              {{getStuffDetails.price}}
+              <span id="currency">{{getStuffDetails.currency}}</span>
+            </v-row>
+        <v-row>
+            <v-col v-if="this.getStuffDetails.user.name != this.usernameInStorage">
             <v-row class="label">Uploaded by:</v-row>
             <v-row id="username" class="property">
               <v-btn
@@ -73,19 +77,21 @@
                 depressed
               >{{getStuffDetails.user.name}} from {{getStuffDetails.user.country}}</v-btn>
             </v-row>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-row class="label">Stuff price:</v-row>
-            <v-row id="price">
-              {{getStuffDetails.price}}
-              <span id="currency">{{getStuffDetails.currency}}</span>
-            </v-row>
-          </v-col>
-          <v-col>
+          </v-col> 
+          </v-row>                                                                                                                                                   
             <v-row class="label">Date of Upload:</v-row>
             <v-row class="property">{{getStuffDetails.date}}</v-row>
+  </v-col>
+      <v-col>
+        <template>
+          <v-card
+            class="images"
+            @click.stop="dialog = true" 
+          >
+            <v-img :src="getImages[0]" height="300" width="600" display="inline"></v-img>
+          </v-card>
+       
+        </template>
           </v-col>
         </v-row>
         <v-row class="label">Stuff Description:</v-row>
@@ -95,19 +101,16 @@
     <v-card dark>
       <v-row pa-2>
         <template>
-          <v-card
-            v-for="image in getImages"
-            :key="image"
-            class="images"
-            @click.stop="dialog = true" 
-            @click="doThis(e)"
-          >
-            <v-img :src="image" height="200" width="200" display="inline"></v-img>
-          </v-card>
           <v-dialog v-model="dialog">
             <template>
-              <v-carousel class="carousel">
-                <v-carousel-item id="carousel" v-for="image in getImages" :key="image" :src="image"></v-carousel-item>
+              <v-carousel 
+                class="carousel">
+                <v-carousel-item 
+                id="carousel" 
+                v-for="image in getImages" 
+                :key="image"
+                :src="image">
+                </v-carousel-item>
               </v-carousel>
             </template>
           </v-dialog>
