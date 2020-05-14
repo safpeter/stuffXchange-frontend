@@ -103,13 +103,13 @@ export default {
       })
       promise.then(setTimeout(() => {if(window.localStorage.getItem("token")) {
          window.localStorage.setItem("username",this.name);
-         this.$store.dispatch("getUserDetails",this.name).then( 
-           window.localStorage.setItem("role",  this.$store.state.userDetails.roles[0])).then(
+         (this.$store.dispatch("getUserDetails",this.name)).then( 
+           window.localStorage.setItem("role",  "user")).then(
               this.$router.push("/mystuff"));
          }else {
             this.dialog=true
          }
-        },2000))
+        },2500))
       },
     newAccountBtn() {
       this.$router.push("/newAccount");

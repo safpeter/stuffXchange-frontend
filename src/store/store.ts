@@ -194,6 +194,17 @@ export default new Vuex.Store({
         }
       })
     },
+    updateProfile(context, data){
+      axios({
+        method:"put",
+        url:`http://localhost:9000/updateprofile/${data.id}`,
+        data : data,
+        headers:{
+          "Authorization": "Bearer " + window.localStorage.getItem("token"),
+          'Access-Control-Allow-Origin': '*'
+        }
+      }).then(response => context.commit("setUserDetails", response.data))
+    }
   },
 
   modules: {}

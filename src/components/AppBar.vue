@@ -72,6 +72,8 @@ export default {
         window.sessionStorage.removeItem("stuffuser");
          window.sessionStorage.removeItem("id");
         window.sessionStorage.removeItem("search");
+       window.sessionStorage.removeItem("userId");
+
       },1000)} 
     },
     search() {

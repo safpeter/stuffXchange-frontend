@@ -10,11 +10,28 @@
           <v-icon v-else>mdi-pencil</v-icon>
         </v-btn>
       </v-toolbar>
+        <v-rating
+        label="My Rating"
+                  large
+                  readonly
+                  v-model="getDetails.rating"
+                  color="#ff6802"
+                  background-color="grey darken-1"
+                  empty-icon="$ratingFull"
+                  half-increments
+                  hover
+                ></v-rating>
+                <v-row id="rating">
+                  <v-col>
+                  My rating : {{getDetails.rating}} from {{getDetails.numberOfRating}}
+                  </v-col>
+                  </v-row>
       <v-card-text>
-        <v-text-field :disabled="!isEditing" color="white" label="Name"></v-text-field>
-        <v-text-field :disabled="!isEditing" color="white" label="Email"></v-text-field>
-        <v-text-field :disabled="!isEditing" color="white" label="Password"></v-text-field>
+        <v-text-field v-model="username" :disabled="!isEditing" color="white" :label="getDetails.name"></v-text-field>
+        <v-text-field v-model="email" :disabled="!isEditing" color="white" :label="getDetails.email"></v-text-field>
         <v-autocomplete
+          v-model="country"
+          label="Country"
           :disabled="!isEditing"
           :filter="customFilter"
           :items="getCountries"
@@ -46,7 +63,10 @@ export default {
       hasSaved: false,
       isEditing: null,
       model: null,
-      username: window.localStorage.getItem("username")
+      username: window.localStorage.getItem("username"),
+      name :null,
+      email:null,
+      country:null
     };
   },
   created() {
@@ -54,7 +74,7 @@ export default {
   },
   computed: {
     getDetails() {
-      console.log(this.$store.state.userDetails);
+      window.sessionStorage.setItem("userId", this.$store.state.userDetails.id)
       return this.$store.state.userDetails;
     },
     getCountries() {
@@ -72,6 +92,12 @@ export default {
       );
     },
     save() {
+      this.$store.dispatch("updateProfile", {
+        id : window.sessionStorage.getItem("userId"),
+        name: this.name,
+        email: this.email,
+        country: this.country,
+      });
       this.isEditing = !this.isEditing;
       this.hasSaved = true;
     }
