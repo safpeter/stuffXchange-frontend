@@ -204,7 +204,19 @@ export default new Vuex.Store({
           'Access-Control-Allow-Origin': '*'
         }
       }).then(response => context.commit("setUserDetails", response.data))
-    }
+    },
+    sendMessage(context, data){
+      axios({
+        method:"post",
+        url:`http://localhost:9000/sendmessage`,
+        data : data,
+        headers:{
+          "Authorization": "Bearer " + window.localStorage.getItem("token"),
+          'Access-Control-Allow-Origin': '*'
+        }
+      }).then(response => context.commit("setUserDetails", response.data))
+    },
+
   },
 
   modules: {}

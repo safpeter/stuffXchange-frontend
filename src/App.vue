@@ -18,13 +18,13 @@ export default {
 }
   </script>
 <style scoped >
-@import url('https://fonts.googleapis.com/css?family=Sen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn+SC&display=swap');
 
 #app {
   background-color:gray !important;
   background-repeat: repeat;
   font-size: 110%;
-  font-family:'Sen',sans-serif;   
+  font-family:   'Vollkorn SC', serif;;   
 }
 
 </style>
