@@ -217,5 +217,6 @@ export default {
 
 .price {
   margin-left: 2%;
+  font-size: 110%;
 }
 </style>

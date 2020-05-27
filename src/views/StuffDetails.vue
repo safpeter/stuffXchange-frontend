@@ -5,7 +5,7 @@
          <v-row v-if=" this.role === 'admin' ">
             <v-col>
             <v-btn class="icons" color="transparent" depressed>
-              <v-icon large>mdi-email</v-icon>Send Message
+              <v-icon large>mdi-email</v-icon>Message to {{getStuffDetails.user.name}}
             </v-btn>
           </v-col>
            <v-col>
@@ -33,10 +33,13 @@
         </v-row>
         <v-row v-else>
           <v-col>
-            <v-btn class="icons" color="transparent" depressed>
-              <v-icon large>mdi-email</v-icon>Send Message
+            <v-btn class="icons" color="transparent" @click.stop="messageDialog = true" depressed>
+              <v-icon large>mdi-email</v-icon>Message To {{getStuffDetails.user.name}}
             </v-btn>
           </v-col>
+          <v-dialog v-model="messageDialog"  max-width="1000">
+          <messageCard :userName="getStuffDetails.user.name" > </messageCard>
+          </v-dialog>
           <v-col>
               <v-btn
                 @click="markAsFavourite"
@@ -64,7 +67,7 @@
             <v-row class="property">{{getStuffDetails.name}}</v-row>
         <v-row class="label">Stuff price:</v-row>
             <v-row id="price">
-              {{getStuffDetails.price}}
+               <span>{{getStuffDetails.price}}</span>
               <span id="currency">{{getStuffDetails.currency}}</span>
             </v-row>
         <v-row>
@@ -121,7 +124,11 @@
 </template>
 
 <script>
+import  MessageCard from "@/components/MessageCard"
+
+
 export default {
+  components:{MessageCard},
   created() {
     this.$store.dispatch("getAllImage", window.sessionStorage.getItem("id"));
     this.$store.dispatch(
@@ -131,6 +138,7 @@ export default {
   },
   data: () => ({
     dialog: false,
+    messageDialog: false,
     usernameInStorage: window.localStorage.getItem("username"),
     stuffIdInStorage: window.sessionStorage.getItem("id"),
     role: window.localStorage.getItem("role")
@@ -196,11 +204,13 @@ export default {
 }
 
 #price {
-  font-size: 150%;
+  font-size: 160%;
 }
 
 #currency {
-  margin-left: 2%;
+   margin-left: 2%;
+  margin-top: 1%;
+  font-size: 80%;
 }
 
 .icons {

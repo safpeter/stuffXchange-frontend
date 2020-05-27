@@ -1,4 +1,4 @@
- <template class=appbar>
+ <template class="appbar">
   <nav>
     <v-app-bar app color="#ff6802" clipped>
       <v-img src="@/assets/logo-StuffX.png" max-height="140%" max-width="12%"></v-img>

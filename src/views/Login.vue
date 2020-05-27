@@ -1,7 +1,7 @@
 <template>
 <div>
-  <v-container dark>
-    <v-card class="card" dark>
+  <v-container >
+    <v-card class="card" dark >
       <v-row justify="center">
           <v-img id=logo src="@/assets/logo-StuffX.png" max-height="100%" max-width="30%"></v-img>
       </v-row>
@@ -51,7 +51,7 @@
             <v-dialog v-model="dialog" max-width="290">
               <v-card dark>
                 <v-card-title wrap>Login failed</v-card-title>
-                <v-card-text wrap>Incorrect Username or Password!</v-card-text>
+                <v-card-text wrap>Invalid Username or Password!</v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
                 </v-card-actions>

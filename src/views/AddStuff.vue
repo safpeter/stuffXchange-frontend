@@ -1,12 +1,13 @@
 <template>
   <div>
-    <v-card dark id="card">
+    <v-card  dark id="card">
     <v-container>
       <v-form ref="form" enctype="multipart/form-data">
         <v-row justify="center" class="text">Add New Stuff</v-row>
         <v-row wrap>
           <v-col>
             <v-text-field
+            class="text"
               dark
               outlined
               color="#ff6802"
@@ -18,6 +19,7 @@
           </v-col>
           <v-col>
             <v-text-field
+            class="text"
               dark
               outlined
               color="#ff6802"
@@ -40,6 +42,7 @@
           </v-col>
         </v-row>
         <v-textarea
+        class="text"
           dark
           color="#ff6802"
           label="Stuff Description"
