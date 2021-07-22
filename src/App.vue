@@ -21,7 +21,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Vollkorn+SC&display=swap');
 
 #app {
-  background-color:gray !important;
+  background-color:rgb(109, 42, 3) !important;
   background-repeat: repeat;
   font-size: 110%;
   font-family:   'Vollkorn SC', serif;;   

@@ -54,10 +54,11 @@ export default {
     token: window.localStorage.getItem("token"),
     searchText: "",
     items: [
+      { icon: "mdi-earth", text: "Home", route: "home" },
       { icon: "mdi-account", text: "My Profile", route: "profile" },
       { icon: "mdi-cash-multiple", text: "My Stuff", route: "mystuff" },
       { icon: "mdi-email", text: "Notifications", route: "notifications" },
-      { icon: "mdi-magnify-plus", text: "Advanced Search", route: "search" },
+      { icon: "mdi-magnify-plus", text: "Advanced Search", route: "advanced" },
       { icon: "mdi-logout", text: "Log out", route: "" }
     ]
   }),
@@ -77,9 +78,14 @@ export default {
       },1000)} 
     },
     search() {
+      if (this.searchText != "") {
       this.$store.dispatch("getSearch", this.searchText);
       this.$router.push("/search/" + this.searchText);
       window.sessionStorage.setItem("search", this.searchText);
+      }
+      else {
+        this.$router.push("/home")
+      }
     }
   }
 };

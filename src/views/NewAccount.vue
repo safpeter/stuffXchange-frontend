@@ -2,7 +2,7 @@
   <v-container dark>
     <v-card class="card" md dark>
       <v-row justify="center">
-          <v-img id="logo" src="@/assets/logo-StuffX.png" max-height="10%" max-width="30%"></v-img>
+        <v-img id="logo" src="@/assets/logo-StuffX.png" max-height="10%" max-width="30%"></v-img>
       </v-row>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-row justify="center" class="text">Create New Account</v-row>
@@ -58,13 +58,22 @@
               color="success"
               class="mr-4"
             >Create Account</v-btn>
-            <v-dialog v-model="dialog" max-width="290">
-              <v-card>
-                <v-card-title class="headline" wrap>Registration fail</v-card-title>
-                <v-card-text wrap>Name was taken, please try sign-up with different name.</v-card-text>
+            <v-snackbar v-model="okayDialog" :timeout="2000" absolute>Successful Registration!</v-snackbar>
+            <v-dialog v-model="emailErrorDialog" max-width="500">
+              <v-card dark>
+                <v-card-title wrap>E-mail address is already taken!</v-card-title>
+                <v-card-text wrap>Please choose another e-mail address!</v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="green darken-1" text @click="dialog = false">Ok</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-dialog v-model="usernameErrorDialog" max-width="500">
+              <v-card dark>
+                <v-card-title wrap>Username is already taken!</v-card-title>
+                <v-card-text wrap>Please choose another username!</v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -90,8 +99,10 @@ export default {
     return {
       show1: false,
       dialog: false,
-      signResult: true,
-
+      signResult: "",
+      emailErrorDialog: false,
+      usernameErrorDialog: false,
+      okayDialog: false,
       valid: true,
       items: [
         { icon1: "mdi-eye-off-outline", text: "visibility_off" },
@@ -121,39 +132,47 @@ export default {
       lazy: false
     };
   },
-
-  watch: {
-    signResult() {
-      this.signResult = this.$state.signResult;
-    }
-  },
   methods: {
     sendRegistry() {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
       }
-      this.$store.dispatch("sendRegistry", {
-        name: this.name,
-        email: this.email,
-        password: this.password,
-        country:this.country
-      });
-      this.$nextTick(function() {
-        if (this.signResult) {
-          this.$router.push("/");
-        } else {
-          this.dialog = true;
-        }
-      });
+      this.$store
+        .dispatch("sendRegistry", {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          country: this.country
+        })
+        .then(
+          setTimeout(() => {
+            if (
+              this.$store.state.signResult ===
+              "Existing e-mail address! Please find another one!"
+            ) {
+              this.emailErrorDialog = true;
+            } else if (
+              this.$store.state.signResult ===
+              "Existing username! Please find another one!"
+            ) {
+              this.usernameErrorDialog = true;
+            } else {
+              this.okayDialog = true;
+              setTimeout(() => {
+                this.$router.push("/");
+              }, 1500);
+            }
+          }, 1000)
+        );
     }
   }
 };
 </script>
 
 <style scoped>
-#logo{
-  padding:0% !important;
-  margin:-8%;
+#logo {
+  padding: 0% !important;
+  margin: -8%;
 }
 
 .card {
@@ -161,7 +180,7 @@ export default {
   padding: 1%;
   margin-left: 15%;
   margin-right: 15%;
-   margin-top: 2%;
+  margin-top: 2%;
 }
 
 .text {
@@ -170,6 +189,6 @@ export default {
 }
 
 #header {
-  margin:2% ;
+  margin: 2%;
 }
 </style>

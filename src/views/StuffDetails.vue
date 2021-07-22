@@ -26,8 +26,8 @@
             </v-btn>
           </v-col>
           <v-col>
-            <v-btn class="icons" color="transparent" depressed>
-              <v-icon large>mdi-update</v-icon>Update Stuff
+            <v-btn @click="goToUpdateStuff" class="icons" color="transparent" depressed>
+              <v-icon  large>mdi-update</v-icon>Update Stuff
             </v-btn>
           </v-col>
         </v-row>
@@ -173,6 +173,9 @@ export default {
     goToUserDetails(stuffuser) {
       window.sessionStorage.setItem("stuffuser", stuffuser);
       this.$router.push("/userdetails/" + stuffuser);
+    },
+    goToUpdateStuff(){
+      this.$router.push("/update");
     }
   }
 };

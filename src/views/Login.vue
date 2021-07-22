@@ -1,7 +1,7 @@
 <template>
 <div>
   <v-container >
-    <v-card class="card" dark >
+    <v-card class="card" >
       <v-row justify="center">
           <v-img id=logo src="@/assets/logo-StuffX.png" max-height="100%" max-width="30%"></v-img>
       </v-row>
@@ -15,6 +15,7 @@
         <v-row justify="center">
           <v-col cols="12" sm="10" md="8" lg="10">
             <v-text-field
+            dark
               outlined
               class="text"
               v-model="name"
@@ -23,6 +24,7 @@
               label="Name"
             ></v-text-field>
             <v-text-field
+            dark
               class="text"
               outlined
               v-model="password"
@@ -105,7 +107,7 @@ export default {
          window.localStorage.setItem("username",this.name);
          (this.$store.dispatch("getUserDetails",this.name)).then( 
            window.localStorage.setItem("role",  "user")).then(
-              this.$router.push("/mystuff"));
+              this.$router.push("/home"));
          }else {
             this.dialog=true
          }
@@ -136,5 +138,6 @@ export default {
   color: #ff6802 !important;
   font-size: 110%;
   margin: 2%;
+
 }
 </style>

@@ -31,7 +31,7 @@
         <v-text-field v-model="email" :disabled="!isEditing" color="white" :label="getDetails.email"></v-text-field>
         <v-autocomplete
           v-model="country"
-          label="Country"
+          label= "Country"
           :disabled="!isEditing"
           :filter="customFilter"
           :items="getCountries"
@@ -46,10 +46,8 @@
       </v-card-actions>
       <v-snackbar
         v-model="hasSaved"
-        :timeout="2000"
-        absolute
-        bottom
-        left
+        :timeout="2500"
+       class="snackbar"
       >Your profile has been updated</v-snackbar>
     </v-card>
   </v-container>

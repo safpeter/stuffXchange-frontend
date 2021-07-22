@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <v-container v-if="this.role == 'user'">
       <v-card class="cards" dark justify="center">
         <v-row justify="center">

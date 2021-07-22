@@ -13,11 +13,12 @@ export default new Vuex.Store({
     },
     allUserStuff: [],
     allFavouriteStuff: [],
+    popularStuff:[],
     images: [],
     stuffDetails: [],
     countries: [],
     currencies: [],
-    signResult: [],
+    signResult: "",
     userDetails: [],
     deleteMessage: "",
     searches: [],
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     setAllFavouriteStuff(state, allStuff) {
       state.allFavouriteStuff = allStuff;
     },
+    setPopularStuff(state, popularStuff) {
+      state.popularStuff = popularStuff;
+    }, 
     setImages(state, images) {
       state.images = images
     },
@@ -215,6 +219,16 @@ export default new Vuex.Store({
           'Access-Control-Allow-Origin': '*'
         }
       }).then(response => context.commit("setUserDetails", response.data))
+    },
+    getPopularStuff(context, username) {
+      axios({
+        method: "get",
+        url: `http://localhost:9000/getpopularstuff/${username}`,
+        headers: {
+          "Authorization": "Bearer " + window.localStorage.getItem("token"),
+          'Access-Control-Allow-Origin': '*'
+        },
+      }).then(response => context.commit("setPopularStuff", response.data))
     },
 
   },

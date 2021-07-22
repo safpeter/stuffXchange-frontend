@@ -52,6 +52,21 @@ const routes = [
     name: "notifications",
     component: () => import("@/views/Notifications.vue"),
   },
+  {
+    path: "/update",
+    name: "update",
+    component: () => import("@/views/UpdateStuff.vue"),
+  },
+  {
+    path: "/home",
+    name: "home",
+    component: () => import("@/views/Homepage.vue"),
+  },
+  {
+    path: "/advanced",
+    name: "advanced",
+    component: () => import("@/views/AdvancedSearch.vue"),
+  },
 ];
 
 const router = new VueRouter({
