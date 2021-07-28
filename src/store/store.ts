@@ -125,10 +125,7 @@ export default new Vuex.Store({
       axios({
         method: "get",
         url: `http://localhost:9000/getcurrencies`,
-        headers: {
-          "Authorization": "Bearer " + window.localStorage.getItem("token"),
-          'Access-Control-Allow-Origin': '*'
-        },
+        headers: this.state.headers 
       }).then(response => context.commit("setCurrencies", response.data))
     },
     sendRegistry(context, data) {
@@ -229,6 +226,16 @@ export default new Vuex.Store({
           'Access-Control-Allow-Origin': '*'
         },
       }).then(response => context.commit("setPopularStuff", response.data))
+    },
+    deleteProfile(context, id) {
+      axios({
+        method: "delete",
+        url: `http://localhost:9000/deleteprofile/${id}`,
+        headers: {
+          "Authorization": "Bearer " + window.localStorage.getItem("token"),
+          'Access-Control-Allow-Origin': '*'
+        },
+      }).then(response => context.commit("setProfileRespond", response.data))
     },
 
   },
