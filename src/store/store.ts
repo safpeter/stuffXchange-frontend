@@ -13,7 +13,7 @@ export default new Vuex.Store({
     },
     allUserStuff: [],
     allFavouriteStuff: [],
-    popularStuff:[],
+    popularStuff: [],
     images: [],
     stuffDetails: [],
     countries: [],
@@ -22,7 +22,7 @@ export default new Vuex.Store({
     userDetails: [],
     deleteMessage: "",
     searches: [],
-    userRating:"",
+    userRating: "",
   },
   mutations: {
     setAllUserStuff(state, allStuff) {
@@ -33,7 +33,7 @@ export default new Vuex.Store({
     },
     setPopularStuff(state, popularStuff) {
       state.popularStuff = popularStuff;
-    }, 
+    },
     setImages(state, images) {
       state.images = images
     },
@@ -61,7 +61,7 @@ export default new Vuex.Store({
     setSearches(state, searches) {
       state.searches = searches;
     },
-   
+
   },
   actions: {
     uploadStuff(context, stuff) {
@@ -125,7 +125,7 @@ export default new Vuex.Store({
       axios({
         method: "get",
         url: `http://localhost:9000/getcurrencies`,
-        headers: this.state.headers 
+        headers: this.state.headers
       }).then(response => context.commit("setCurrencies", response.data))
     },
     sendRegistry(context, data) {
@@ -184,34 +184,34 @@ export default new Vuex.Store({
         }
       })
     },
-    sendRating(context, rating){
+    sendRating(context, rating) {
       axios({
-        method:"post",
-        url:`http://localhost:9000/rateuser`,
-        data : rating,
-        headers:{
+        method: "post",
+        url: `http://localhost:9000/rateuser`,
+        data: rating,
+        headers: {
           "Authorization": "Bearer " + window.localStorage.getItem("token"),
           'Access-Control-Allow-Origin': '*'
         }
       })
     },
-    updateProfile(context, data){
+    updateProfile(context, data) {
       axios({
-        method:"put",
-        url:`http://localhost:9000/updateprofile/${data.id}`,
-        data : data,
-        headers:{
+        method: "put",
+        url: `http://localhost:9000/updateprofile/${data.id}`,
+        data: data,
+        headers: {
           "Authorization": "Bearer " + window.localStorage.getItem("token"),
           'Access-Control-Allow-Origin': '*'
         }
       }).then(response => context.commit("setUserDetails", response.data))
     },
-    sendMessage(context, data){
+    sendMessage(context, data) {
       axios({
-        method:"post",
-        url:`http://localhost:9000/sendmessage`,
-        data : data,
-        headers:{
+        method: "post",
+        url: `http://localhost:9000/sendmessage`,
+        data: data,
+        headers: {
           "Authorization": "Bearer " + window.localStorage.getItem("token"),
           'Access-Control-Allow-Origin': '*'
         }

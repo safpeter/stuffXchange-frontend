@@ -1,9 +1,9 @@
 <template>
   <v-card class="cards" dark justify="center">
-    <v-row class="text">Popular Stuffs</v-row>
+    <p class="text">{{header}}</p>
     <v-row pa-2 justify="center">
       <v-card
-        v-for="stuff in getPopularStuff"
+        v-for="stuff in this.allStuff"
         :key="stuff.id"
         @click="getDetails(stuff.id)"
         class="image-cards"
@@ -17,6 +17,7 @@
           {{ stuff.name.slice(0, 20) }}
           <span>...</span>
         </p>
+
         <p v-else class="card-title">{{ stuff.name }}</p>
         <p class="price">
           {{ stuff.price }}
@@ -29,18 +30,7 @@
 
 <script>
 export default {
-
-  created() {
-    this.$store.dispatch(
-      "getPopularStuff",
-      window.localStorage.getItem("username")
-    );
-  },
-  computed: {
-    getPopularStuff() {
-      return this.$store.state.popularStuff;
-    },
-  },
+  props: ["allStuff", "header"],  
   methods: {
     getDetails(id) {
       this.$store.dispatch("getAllImage", id);

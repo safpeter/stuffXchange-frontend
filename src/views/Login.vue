@@ -104,23 +104,48 @@ export default {
     lazy: false,
   }),
   methods: {
-login() {
-      let promise = new Promise((resolve)=> {
-       resolve(this.$store.dispatch("sendLogin",{
-        username: this.name, 
+    dispatch() {
+      this.$store.dispatch("sendLogin", {
+        username: this.name,
         password: this.password,
-        }))
-      })
-      promise.then(setTimeout(() => {if(window.localStorage.getItem("token")) {
-         window.localStorage.setItem("username",this.name);
-         (this.$store.dispatch("getUserDetails",this.name)).then( 
-           window.localStorage.setItem("role",  "user")).then(
-              this.$router.push("/home"));
-         }else {
-            this.dialog=true
-         }
-        },2500))
-      },
+      });
+    },
+    //  getResponse(){
+    //     window.localStorage.setItem("username",this.name);
+    //            (this.$store.dispatch("getUserDetails",this.name)).then(
+    //              window.localStorage.setItem("role",  "user")).then(
+    //                 this.$router.push("/home"));
+    //  },
+    // async login() {
+    //   try {
+    //     this.dispatch()
+    //      let response = await  this.$store.signResult
+    //      console.log(response)
+    //      console.log(this.$store.state.signResult);
+
+    //   } catch (err) {
+    //     console.log("something went wrong!")
+    //     this.dialog = true
+    //   }
+    // },
+    login() {
+      let promise = new Promise((resolve) => {
+        resolve(this.dispatch());
+      });
+      promise.then(
+        setTimeout(() => {
+          if (window.localStorage.getItem("token")) {
+            window.localStorage.setItem("username", this.name);
+            this.$store
+              .dispatch("getUserDetails", this.name)
+              .then(window.localStorage.setItem("role", "user"))
+              .then(this.$router.push("/home"));
+          } else {
+            this.dialog = true;
+          }
+        }, 2500)
+      );
+    },
     newAccountBtn() {
       this.$router.push("/newAccount");
     },

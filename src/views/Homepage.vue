@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container>
-      <StuffCard></StuffCard>
+      <StuffCard :header="this.header" :allStuff="getPopularStuff"></StuffCard>
     </v-container>
   </div>
 </template>
@@ -24,8 +24,8 @@ export default {
   data() {
     return {
       isLoggedIn: true,
+      header:"Popular Stuffs"
     };
   },
 };
 </script>
-
