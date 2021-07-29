@@ -1,4 +1,6 @@
-# frontend
+# Stuff Exchange frontend
+Stuff Exchange is a buy and/or sell application where users can sign up, log in and then search for other stuffs to buy and upload their own.
+Front-end was built in Vue.Js, including vuetify library for material design and vuex for state management.
 
 ## Project setup
 ```
@@ -20,5 +22,3 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
