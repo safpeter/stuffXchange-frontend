@@ -19,13 +19,13 @@ export default {
   computed: {
     getPopularStuff() {
       return this.$store.state.popularStuff;
-    },
+    }
   },
   data() {
     return {
       isLoggedIn: true,
-      header:"Popular Stuffs"
+      header: "Popular Stuffs"
     };
-  },
+  }
 };
 </script>

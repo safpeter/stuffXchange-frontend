@@ -2,7 +2,12 @@
   <v-container dark>
     <v-card class="card" md dark>
       <v-row justify="center">
-        <v-img id="logo" src="@/assets/logo-StuffX.png" max-height="10%" max-width="30%"></v-img>
+        <v-img
+          id="logo"
+          src="@/assets/logo-StuffX.png"
+          max-height="10%"
+          max-width="30%"
+        ></v-img>
       </v-row>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-row justify="center" class="text">Create New Account</v-row>
@@ -57,12 +62,19 @@
               :disabled="!valid"
               color="success"
               class="mr-4"
-            >Create Account</v-btn>
-            <v-snackbar v-model="okayDialog" :timeout="2000" absolute>Successful Registration!</v-snackbar>
+              >Create Account</v-btn
+            >
+            <v-snackbar v-model="okayDialog" :timeout="2000" absolute
+              >Successful Registration!</v-snackbar
+            >
             <v-dialog v-model="emailErrorDialog" max-width="500">
               <v-card dark>
-                <v-card-title wrap>E-mail address is already taken!</v-card-title>
-                <v-card-text wrap>Please choose another e-mail address!</v-card-text>
+                <v-card-title wrap
+                  >E-mail address is already taken!</v-card-title
+                >
+                <v-card-text wrap
+                  >Please choose another e-mail address!</v-card-text
+                >
                 <v-card-actions>
                   <v-spacer></v-spacer>
                 </v-card-actions>

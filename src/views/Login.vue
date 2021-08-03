@@ -87,27 +87,27 @@ export default {
     valid: true,
     items: [
       { icon1: "mdi-eye-off-outline", text: "visibility_off" },
-      { icon2: "mdi-eye-outline", text: "visibility" },
+      { icon2: "mdi-eye-outline", text: "visibility" }
     ],
     password: "",
     rules: {
-      required: (value) => !!value || "Required.",
-      min: (v) => v.length >= 8 || "Min 8 characters",
-      emailMatch: () => "The email and password you entered don't match",
+      required: value => !!value || "Required.",
+      min: v => v.length >= 8 || "Min 8 characters",
+      emailMatch: () => "The email and password you entered don't match"
     },
     name: "",
     nameRules: [
-      (v) => !!v || "Name is required",
-      (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
+      v => !!v || "Name is required",
+      v => (v && v.length <= 20) || "Name must be less than 20 characters"
     ],
 
-    lazy: false,
+    lazy: false
   }),
   methods: {
     dispatch() {
       this.$store.dispatch("sendLogin", {
         username: this.name,
-        password: this.password,
+        password: this.password
       });
     },
     //  getResponse(){
@@ -129,7 +129,7 @@ export default {
     //   }
     // },
     login() {
-      let promise = new Promise((resolve) => {
+      let promise = new Promise(resolve => {
         resolve(this.dispatch());
       });
       promise.then(
@@ -148,8 +148,8 @@ export default {
     },
     newAccountBtn() {
       this.$router.push("/newAccount");
-    },
-  },
+    }
+  }
 };
 </script>
 

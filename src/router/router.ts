@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-
 Vue.use(VueRouter);
 
 const routes = [
@@ -50,23 +49,23 @@ const routes = [
   {
     path: "/notifications",
     name: "notifications",
-    component: () => import("@/views/Notifications.vue"),
+    component: () => import("@/views/Notifications.vue")
   },
   {
     path: "/update",
     name: "update",
-    component: () => import("@/views/UpdateStuff.vue"),
+    component: () => import("@/views/UpdateStuff.vue")
   },
   {
     path: "/home",
     name: "home",
-    component: () => import("@/views/Homepage.vue"),
+    component: () => import("@/views/Homepage.vue")
   },
   {
     path: "/advanced",
     name: "advanced",
-    component: () => import("@/views/AdvancedSearch.vue"),
-  },
+    component: () => import("@/views/AdvancedSearch.vue")
+  }
 ];
 
 const router = new VueRouter({

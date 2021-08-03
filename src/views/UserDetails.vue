@@ -2,27 +2,37 @@
   <div>
     <v-card dark class="properties">
       <v-container>
-         <v-row v-if=" this.role === 'admin' ">
-            <v-col>
+        <v-row v-if="this.role === 'admin'">
+          <v-col>
             <v-btn class="icons" color="transparent" depressed>
-              <v-icon large>mdi-email</v-icon>Message to {{this.stuffUser}}
+              <v-icon large>mdi-email</v-icon>Message to {{ this.stuffUser }}
             </v-btn>
           </v-col>
-           <v-col>
+          <v-col>
             <v-btn class="icons" color="transparent" depressed>
               <v-icon large>mdi-block-helper</v-icon>Block Stuff
             </v-btn>
           </v-col>
           <v-col>
-            <v-btn @click="deleteStuff" class="icons" color="transparent" depressed>
+            <v-btn
+              @click="deleteStuff"
+              class="icons"
+              color="transparent"
+              depressed
+            >
               <v-icon large>mdi-email</v-icon>
             </v-btn>
           </v-col>
         </v-row>
         <v-row v-else>
           <v-col>
-            <v-btn @click.stop="messageDialog = true" class="icons" color="transparent" depressed>
-              <v-icon large>mdi-email</v-icon>Message to {{this.stuffUser}}
+            <v-btn
+              @click.stop="messageDialog = true"
+              class="icons"
+              color="transparent"
+              depressed
+            >
+              <v-icon large>mdi-email</v-icon>Message to {{ this.stuffUser }}
             </v-btn>
           </v-col>
           <v-dialog v-model="messageDialog" max-width="1000">
@@ -32,78 +42,82 @@
         <v-row>
           <v-col>
             <v-row class="label">Username:</v-row>
-            <v-row class="property">{{getDetails.name}}</v-row>
+            <v-row class="property">{{ getDetails.name }}</v-row>
           </v-col>
           <v-col>
             <v-row class="label">Member since:</v-row>
-            <v-row class="property">{{getDetails.dateOfSignUp}}</v-row>
+            <v-row class="property">{{ getDetails.dateOfSignUp }}</v-row>
           </v-col>
         </v-row>
         <v-row>
           <v-col>
             <v-row class="label">Location:</v-row>
-            <v-row class="property">{{getDetails.country}}</v-row>
+            <v-row class="property">{{ getDetails.country }}</v-row>
           </v-col>
           <v-col>
             <v-row class="label">E-mail address:</v-row>
-            <v-row class="property">{{getDetails.email}}</v-row>
+            <v-row class="property">{{ getDetails.email }}</v-row>
           </v-col>
         </v-row>
         <v-row>
           <v-col>
             <v-row class="label">Rating:</v-row>
+            <v-col>
+              <v-rating
+                large
+                readonly
+                v-model="getDetails.rating"
+                color="#ff6802"
+                background-color="grey darken-1"
+                empty-icon="$ratingFull"
+                half-increments
+                hover
+              ></v-rating>
+              <v-row v-if="getDetails.numberOfRating === 0"
+                >No ratings yet!</v-row
+              >
+              <v-row v-else
+                >{{ getDetails.rating }} from
+                {{ getDetails.numberOfRating }} rating</v-row
+              >
+            </v-col>
+          </v-col>
+          <v-col>
+            <v-col>
+              <v-row class="label">Your rating:</v-row>
               <v-col>
                 <v-rating
                   large
-                  readonly
-                  v-model="getDetails.rating"
+                  v-model="rating"
                   color="#ff6802"
                   background-color="grey darken-1"
                   empty-icon="$ratingFull"
                   half-increments
                   hover
+                  class="rating"
+                  @input="sendRating"
                 ></v-rating>
-                <v-row v-if="getDetails.numberOfRating === 0">No ratings yet!</v-row>
-                <v-row v-else>{{getDetails.rating}} from {{getDetails.numberOfRating}} rating</v-row>
               </v-col>
-              </v-col>
-              <v-col>
-          <v-col>
-             <v-row class="label">Your rating:</v-row>
-             <v-col>
-            <v-rating
-              large
-              v-model="rating"
-              color="#ff6802"
-              background-color="grey darken-1"
-              empty-icon="$ratingFull"
-              half-increments
-              hover
-              class="rating"
-              @input="sendRating"
-            ></v-rating>
-             </v-col>
+            </v-col>
+            <v-col></v-col>
           </v-col>
-          <v-col></v-col>
-              </v-col>
-            </v-row>
-       
+        </v-row>
       </v-container>
     </v-card>
   </div>
 </template>
 
 <script>
-import  MessageCard from "@/components/MessageCard"
- 
+import MessageCard from "@/components/MessageCard";
+
 export default {
-  components:{MessageCard},
+  components: { MessageCard },
   data: () => ({
     messageDialog: false,
     stuffUser: window.sessionStorage.getItem("stuffuser"),
     raterUserName: window.localStorage.getItem("username"),
-    rating: 0 ,
-    averageRating:"",
+    rating: 0,
+    averageRating: ""
   }),
   created() {
     this.$store.dispatch("getUserDetails", this.stuffUser);
@@ -114,14 +128,20 @@ export default {
     }
   },
   methods: {
-      sendRating(){
-       this.$store.dispatch("sendRating",{
+    sendRating() {
+      this.$store
+        .dispatch("sendRating", {
           raterUserName: this.raterUserName,
-           userName : this.stuffUser,
-           rating : this.rating,
-       }).then(setTimeout( () =>(this.$store.dispatch("getUserDetails", this.stuffUser)), 1000))
-        }
-     
+          userName: this.stuffUser,
+          rating: this.rating
+        })
+        .then(
+          setTimeout(
+            () => this.$store.dispatch("getUserDetails", this.stuffUser),
+            1000
+          )
+        );
+    }
   }
 };
 </script>

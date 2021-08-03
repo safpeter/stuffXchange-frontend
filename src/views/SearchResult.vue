@@ -12,7 +12,7 @@ export default {
   components: { StuffCard },
   data: () => ({
     search: window.sessionStorage.getItem("search"),
-    header:"Search Results"
+    header: "Search Results"
   }),
   created() {
     this.$store.dispatch("getSearch", this.search);
@@ -22,14 +22,13 @@ export default {
       return this.$store.state.searches;
     }
   },
-  methods:{
-     getDetails(id) {
+  methods: {
+    getDetails(id) {
       this.$store.dispatch("getAllImage", id);
       this.$store.dispatch("getStuffDetails", id);
       this.$router.push(`/stuffdetails/` + id);
-      window.sessionStorage.setItem("id",id);
-    } 
+      window.sessionStorage.setItem("id", id);
+    }
   }
 };
 </script>
-

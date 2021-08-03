@@ -1,7 +1,11 @@
- <template class="appbar">
+<template class="appbar">
   <nav>
     <v-app-bar app color="#ff6802" clipped>
-      <v-img src="@/assets/logo-StuffX.png" max-height="140%" max-width="12%"></v-img>
+      <v-img
+        src="@/assets/logo-StuffX.png"
+        max-height="140%"
+        max-width="12%"
+      ></v-img>
       <v-col cols="15" sm="4" md="4" class="search-bar">
         <v-text-field
           v-model="searchText"
@@ -35,7 +39,9 @@
                 <v-icon class="text-icon">{{ item.icon }}</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title class="text-icon">{{ item.text }}</v-list-item-title>
+                <v-list-item-title class="text-icon">{{
+                  item.text
+                }}</v-list-item-title>
               </v-list-item-content>
             </v-btn>
           </v-list-item>
@@ -44,8 +50,6 @@
     </v-app-bar>
   </nav>
 </template>
-
-
 
 <script>
 export default {
@@ -66,25 +70,24 @@ export default {
     gotoRoute(route) {
       this.$router.push("/" + route);
       if (route == "") {
-        setTimeout( () => {
-        window.localStorage.removeItem("token");
-         window.localStorage.removeItem("role");
-        window.localStorage.removeItem("username");
-        window.sessionStorage.removeItem("stuffuser");
-         window.sessionStorage.removeItem("id");
-        window.sessionStorage.removeItem("search");
-       window.sessionStorage.removeItem("userId");
-
-      },1000)} 
+        setTimeout(() => {
+          window.localStorage.removeItem("token");
+          window.localStorage.removeItem("role");
+          window.localStorage.removeItem("username");
+          window.sessionStorage.removeItem("stuffuser");
+          window.sessionStorage.removeItem("id");
+          window.sessionStorage.removeItem("search");
+          window.sessionStorage.removeItem("userId");
+        }, 1000);
+      }
     },
     search() {
       if (this.searchText != "") {
-      this.$store.dispatch("getSearch", this.searchText);
-      this.$router.push("/search/" + this.searchText);
-      window.sessionStorage.setItem("search", this.searchText);
-      }
-      else {
-        this.$router.push("/home")
+        this.$store.dispatch("getSearch", this.searchText);
+        this.$router.push("/search/" + this.searchText);
+        window.sessionStorage.setItem("search", this.searchText);
+      } else {
+        this.$router.push("/home");
       }
     }
   }
@@ -111,7 +114,7 @@ export default {
 }
 
 .text-icon {
-  color: #33312E !important;
+  color: #33312e !important;
   font-size: 120%;
 }
 </style>

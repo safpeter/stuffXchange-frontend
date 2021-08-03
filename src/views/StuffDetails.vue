@@ -140,7 +140,7 @@
                   id="carousel"
                   v-for="image in getImages"
                   :key="image"
-                  :src="image"
+                  :src="image">
                 >
                 </v-carousel-item>
               </v-carousel>
@@ -173,7 +173,7 @@ export default {
     messageDialog: false,
     usernameInStorage: window.localStorage.getItem("username"),
     stuffIdInStorage: window.sessionStorage.getItem("id"),
-    role: window.localStorage.getItem("role"),
+    role: window.localStorage.getItem("role")
   }),
   computed: {
     getStuffDetails() {
@@ -184,21 +184,21 @@ export default {
     },
     getAllFavouriteStuff() {
       return this.$store.state.allFavouriteStuff;
-    },
+    }
   },
   methods: {
     deleteStuff() {
       this.$store
         .dispatch("deleteStuff", {
           id: this.stuffIdInStorage,
-          username: this.usernameInStorage,
+          username: this.usernameInStorage
         })
         .then(setTimeout(() => this.$router.push("/mystuff"), 1000));
     },
     markAsFavourite() {
       this.$store.dispatch("markAsFavourite", {
         username: this.usernameInStorage,
-        stuffId: this.stuffIdInStorage,
+        stuffId: this.stuffIdInStorage
       });
       document.querySelector("#marked").style.display = "block";
       document.querySelector("#unmarked").style.display = "none";
@@ -213,8 +213,8 @@ export default {
     },
     goToUpdateStuff() {
       this.$router.push("/update");
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -266,4 +266,3 @@ export default {
   display: none;
 }
 </style>
-

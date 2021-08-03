@@ -40,7 +40,9 @@
     <v-dialog v-model="errorDialog" max-width="320">
       <v-card dark>
         <v-card-title wrap>Message failed to send!</v-card-title>
-        <v-card-text wrap>Please fill out both of the fields above!</v-card-text>
+        <v-card-text wrap
+          >Please fill out both of the fields above!</v-card-text
+        >
         <v-card-actions>
           <v-spacer></v-spacer>
         </v-card-actions>
@@ -54,30 +56,30 @@
 // import Stomp from "webstomp-client";
 export default {
   data: () => ({
-    messageTo: "",  
+    messageTo: "",
     messageText: "",
     errorDialog: false,
     rules: {
       required: value => !!value || "Required"
     }
   }),
-//   mounted() {
-//     let socket = new SockJS("/secured/room");
-//     let stompClient = Stomp.over(socket);
-//     //let sessionId = "";
+  //   mounted() {
+  //     let socket = new SockJS("/secured/room");
+  //     let stompClient = Stomp.over(socket);
+  //     //let sessionId = "";
 
-//     stompClient.connect({}, function() {
-//       let url = stompClient.ws._transport.url;
-//       url = url.replace(
-//         "ws://localhost:8080/spring-security-mvc-socket/secured/room/",
-//         ""
-//       );
-//       url = url.replace("/websocket", "");
-//       url = url.replace(/^[0-9]+\//, "");
-//       console.log("Your current session is: " + url);
-//       //sessionId = url;
-//     });
-//   },
+  //     stompClient.connect({}, function() {
+  //       let url = stompClient.ws._transport.url;
+  //       url = url.replace(
+  //         "ws://localhost:8080/spring-security-mvc-socket/secured/room/",
+  //         ""
+  //       );
+  //       url = url.replace("/websocket", "");
+  //       url = url.replace(/^[0-9]+\//, "");
+  //       console.log("Your current session is: " + url);
+  //       //sessionId = url;
+  //     });
+  //   },
   methods: {
     sendMessage() {
       if (this.messageTo && this.messageText) {

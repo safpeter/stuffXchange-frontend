@@ -89,7 +89,6 @@
   </v-container>
 </template>
 
-
 <script>
 export default {
   data() {
@@ -102,19 +101,19 @@ export default {
       username: window.localStorage.getItem("username"),
       name: null,
       nameRules: [
-        (v) => !!v || "Name is required",
-        (v) =>
+        v => !!v || "Name is required",
+        v =>
           (v && v.length <= 20) ||
           v.length < 4 ||
           "Name must be less than 20 characters",
-        (v) => v.length > 3 || "Name must be more than 3 characters",
+        v => v.length > 3 || "Name must be more than 3 characters"
       ],
       email: null,
       emailRules: [
-        (v) => !!v || "E-mail is required",
-        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+        v => !!v || "E-mail is required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
       ],
-      country: null,
+      country: null
     };
   },
   created() {
@@ -127,7 +126,7 @@ export default {
     },
     getCountries() {
       return this.$store.state.countries;
-    },
+    }
   },
   methods: {
     customFilter(item, queryText) {
@@ -144,7 +143,7 @@ export default {
         id: window.sessionStorage.getItem("userId"),
         name: this.name,
         email: this.email,
-        country: this.country,
+        country: this.country
       });
       this.isEditing = !this.isEditing;
       this.hasSaved = true;
@@ -158,11 +157,7 @@ export default {
     deleteProfile() {
       this.$store
         .dispatch("deleteProfile", window.sessionStorage.getItem("userId"))
-        .then(
-         
-            this.deleteDialog = true
-         
-        )
+        .then((this.deleteDialog = true))
         .then(
           setTimeout(() => {
             this.$router.push("/");
@@ -170,15 +165,15 @@ export default {
         )
         .then(
           window.localStorage.removeItem("token"),
-         window.localStorage.removeItem("role"),
-         window.localStorage.removeItem("username"),
-         window.sessionStorage.removeItem("stuffuser"),
-         window.sessionStorage.removeItem("id"),
-        window.sessionStorage.removeItem("search"),
-       window.sessionStorage.removeItem("userId")
+          window.localStorage.removeItem("role"),
+          window.localStorage.removeItem("username"),
+          window.sessionStorage.removeItem("stuffuser"),
+          window.sessionStorage.removeItem("id"),
+          window.sessionStorage.removeItem("search"),
+          window.sessionStorage.removeItem("userId")
         );
-    },
-  },
+    }
+  }
 };
 </script>
 

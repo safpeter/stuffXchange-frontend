@@ -3,23 +3,42 @@
     <v-container v-if="this.role == 'user'">
       <v-card id="add-card" align-center dark>
         <v-row justify="center">
-          <v-btn @click="goToAddStuff" id="btn-add" color="transparent" depressed>
+          <v-btn
+            @click="goToAddStuff"
+            id="btn-add"
+            color="transparent"
+            depressed
+          >
             <v-icon x-large>mdi-plus-box</v-icon>Add New Stuff
           </v-btn>
         </v-row>
-        </v-card>
-        <StuffCard v-if="getAllUserStuff.length == 0" :header="this.noSell"></StuffCard>
-       <StuffCard v-else :header="this.sellHeader" :allStuff="getAllUserStuff"></StuffCard>
-       <StuffCard v-if="getAllFavouriteStuff == 0" :header="this.noBuy"></StuffCard>
-      <StuffCard v-else :header="this.buyHeader" :allStuff="getAllFavouriteStuff"></StuffCard>
+      </v-card>
+      <StuffCard
+        v-if="getAllUserStuff.length == 0"
+        :header="this.noSell"
+      ></StuffCard>
+      <StuffCard
+        v-else
+        :header="this.sellHeader"
+        :allStuff="getAllUserStuff"
+      ></StuffCard>
+      <StuffCard
+        v-if="getAllFavouriteStuff == 0"
+        :header="this.noBuy"
+      ></StuffCard>
+      <StuffCard
+        v-else
+        :header="this.buyHeader"
+        :allStuff="getAllFavouriteStuff"
+      ></StuffCard>
     </v-container>
   </div>
 </template>
 
 <script>
-import StuffCard  from '@/components/StuffCard.vue'
+import StuffCard from "@/components/StuffCard.vue";
 export default {
-  components:{StuffCard},
+  components: { StuffCard },
   created() {
     this.$store.dispatch(
       "getAllUserStuff",
@@ -37,9 +56,9 @@ export default {
   data: () => ({
     role: window.localStorage.getItem("role"),
     buyHeader: "Stuff To Buy",
-    sellHeader:"Stuff To Sell",
-    noSell:"There is no stuff you want to sell at the moment!",
-    noBuy:"There is no stuff you want to buy at the moment!",
+    sellHeader: "Stuff To Sell",
+    noSell: "There is no stuff you want to sell at the moment!",
+    noBuy: "There is no stuff you want to buy at the moment!"
   }),
   computed: {
     getAllUserStuff() {
@@ -79,8 +98,8 @@ export default {
 }
 
 #add-card {
-  margin-left:35%;
-  margin-right: 35%;
+  margin-left: 37%;
+  margin-right: 37%;
+  padding: 0.5%;
 }
-
 </style>

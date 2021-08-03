@@ -77,21 +77,21 @@ export default {
     messageText: "",
     errorDialog: false,
     rules: {
-      required: (value) => !!value || "Required",
-    },
+      required: value => !!value || "Required"
+    }
   }),
   methods: {
     sendMessage() {
       if (this.messageTo && this.messageText) {
         this.$store.dispatch("sendMessage", {
           address: this.messageTo,
-          message: this.messageText,
+          message: this.messageText
         });
       } else {
         this.errorDialog = true;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -1,30 +1,33 @@
 <template>
-<div>
-    <v-card class="cards" dark justify="center">
-        <v-container>
-            <div align="center">
-            <v-icon x-large> mdi-account-hard-hat</v-icon> <p id="text">Under Construction!</p>
-            </div>
-        </v-container> 
-    </v-card>
-</div>
+  <v-container>
+    <UploadStuff
+      :header="this.header + getStuffDetails.name"
+      :initName="getStuffDetails.name"
+      :initPrice="getStuffDetails.price"
+      :initCurrency="getStuffDetails.currency"
+      :initDescription="getStuffDetails.description"
+      :upButton="this.header "
+      :imagesToDisplay="getImages"
+    ></UploadStuff>
+  </v-container>
 </template>
 
 <script>
+import UploadStuff from "@/components/UploadStuff.vue";
 export default {
-  
-}
-
-
+  components: { UploadStuff },
+  computed: {
+    getStuffDetails() {
+      return this.$store.state.stuffDetails;
+    },
+    getImages() {
+      return this.$store.state.images;
+    },
+  },
+  data:() => ({
+      header: "Update ",
+    }),
+};
 </script>
 
-<style scoped>
 
-#text{
-    font-size: 180% !important;
-}
-
-.cards {
-  margin: 1% !important;
-}
-</style>

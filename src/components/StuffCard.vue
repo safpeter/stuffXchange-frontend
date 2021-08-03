@@ -1,6 +1,6 @@
 <template>
   <v-card class="cards" dark justify="center">
-    <p class="text">{{header}}</p>
+    <p class="text">{{ header }}</p>
     <v-row pa-2 justify="center">
       <v-card
         v-for="stuff in this.allStuff"
@@ -30,15 +30,15 @@
 
 <script>
 export default {
-  props: ["allStuff", "header"],  
+  props: ["allStuff", "header"],
   methods: {
     getDetails(id) {
       this.$store.dispatch("getAllImage", id);
       this.$store.dispatch("getStuffDetails", id);
       this.$router.push(`/stuffdetails/` + id);
       window.sessionStorage.setItem("id", id);
-    },
-  },
+    }
+  }
 };
 </script>
 
