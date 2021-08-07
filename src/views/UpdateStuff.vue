@@ -15,6 +15,13 @@
 <script>
 import UploadStuff from "@/components/UploadStuff.vue";
 export default {
+  created(){
+    this.$store.dispatch("getAllImage", window.sessionStorage.getItem("id"));
+    this.$store.dispatch(
+      "getStuffDetails",
+      window.sessionStorage.getItem("id")
+    );
+  },
   components: { UploadStuff },
   computed: {
     getStuffDetails() {

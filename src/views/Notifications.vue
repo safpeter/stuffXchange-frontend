@@ -4,52 +4,15 @@
       <v-container>
         <v-row justify="center">
           <v-btn
-            @click.stop="dialog = true"
+            @click.stop="messageDialog = true"
             id="btn-add"
             color="transparent"
             depressed
           >
             <v-icon x-large>mdi-plus-box</v-icon>New Message
           </v-btn>
-          <v-dialog v-model="dialog" max-width="1000">
-            <v-card dark>
-              <v-container>
-                <v-form>
-                  <v-row justify="center" class="header"> New Message </v-row>
-                  <v-row wrap>
-                    <v-col>
-                      <v-text-field
-                        dark
-                        outlined
-                        color="#ff6802"
-                        v-model="messageTo"
-                        label="Message To"
-                        :rules="[rules.required]"
-                        cols="10"
-                      ></v-text-field>
-                    </v-col>
-                    <v-spacer></v-spacer>
-                  </v-row>
-                  <v-textarea
-                    dark
-                    color="#ff6802"
-                    label="Message"
-                    v-model="messageText"
-                    rows="12"
-                    :rules="[rules.required]"
-                    outlined
-                  ></v-textarea>
-                  <v-row justify="center">
-                    <v-btn color="success" @click="sendMessage"
-                      >Send Message</v-btn
-                    >
-                  </v-row>
-                </v-form>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                </v-card-actions>
-              </v-container>
-            </v-card>
+          <v-dialog v-model="messageDialog" max-width="1000">
+            <MessageCard ></MessageCard>
           </v-dialog>
           <v-dialog v-model="errorDialog" max-width="320">
             <v-card dark>
@@ -70,28 +33,30 @@
 </template>
 
 <script>
+import MessageCard from "@/components/MessageCard.vue";
 export default {
+  components: { MessageCard },
   data: () => ({
-    dialog: false,
+    messageDialog: false,
     messageTo: "",
     messageText: "",
     errorDialog: false,
     rules: {
-      required: value => !!value || "Required"
-    }
+      required: (value) => !!value || "Required",
+    },
   }),
   methods: {
     sendMessage() {
       if (this.messageTo && this.messageText) {
         this.$store.dispatch("sendMessage", {
           address: this.messageTo,
-          message: this.messageText
+          message: this.messageText,
         });
       } else {
         this.errorDialog = true;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

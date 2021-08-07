@@ -36,7 +36,7 @@
             </v-btn>
           </v-col>
           <v-dialog v-model="messageDialog" max-width="1000">
-            <messageCard :userName="getDetails.name"></messageCard>
+            <MessageCard :initUsername="getDetails.name"></MessageCard>
           </v-dialog>
         </v-row>
         <v-row>
@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import MessageCard from "@/components/MessageCard";
+import MessageCard from "@/components/MessageCard.vue";
 
 export default {
   components: { MessageCard },

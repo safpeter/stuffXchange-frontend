@@ -7,11 +7,10 @@
           <v-row wrap>
             <v-col>
               <v-text-field
-                disabled
                 dark
                 outlined
                 color="#ff6802"
-                v-model="this.userName"
+                v-model="messageTo"
                 label="Message To"
                 :rules="[rules.required]"
                 cols="10"
@@ -52,47 +51,28 @@
 </template>
 
 <script>
-// import SockJS from "sockjs";
-// import Stomp from "webstomp-client";
 export default {
-  data: () => ({
-    messageTo: "",
+  props: ["initUsername"],
+  data: (vm) => ({
+    messageTo: vm.initUsername,
     messageText: "",
     errorDialog: false,
     rules: {
-      required: value => !!value || "Required"
-    }
+      required: (value) => !!value || "Required",
+    },
   }),
-  //   mounted() {
-  //     let socket = new SockJS("/secured/room");
-  //     let stompClient = Stomp.over(socket);
-  //     //let sessionId = "";
-
-  //     stompClient.connect({}, function() {
-  //       let url = stompClient.ws._transport.url;
-  //       url = url.replace(
-  //         "ws://localhost:8080/spring-security-mvc-socket/secured/room/",
-  //         ""
-  //       );
-  //       url = url.replace("/websocket", "");
-  //       url = url.replace(/^[0-9]+\//, "");
-  //       console.log("Your current session is: " + url);
-  //       //sessionId = url;
-  //     });
-  //   },
   methods: {
     sendMessage() {
       if (this.messageTo && this.messageText) {
         this.$store.dispatch("sendMessage", {
           address: this.messageTo,
-          message: this.messageText
+          message: this.messageText,
         });
       } else {
         this.errorDialog = true;
       }
-    }
+    },
   },
-  props: ["userName"]
 };
 </script>
 

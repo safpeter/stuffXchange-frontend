@@ -118,6 +118,10 @@ export default {
   },
   methods: {
     selectFile(event) {
+        console.log("TEEEEE")
+        console.log(this.currency);
+        console.log(this.description);
+        console.log(this.name);
       let target = event.target.files[0];
       this.pictureTarget = target;
       this.imagesToUpload.push(target);
