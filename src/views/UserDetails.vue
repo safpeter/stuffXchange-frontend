@@ -2,29 +2,7 @@
   <div>
     <v-card dark class="properties">
       <v-container>
-        <v-row v-if="this.role === 'admin'">
-          <v-col>
-            <v-btn class="icons" color="transparent" depressed>
-              <v-icon large>mdi-email</v-icon>Message to {{ this.stuffUser }}
-            </v-btn>
-          </v-col>
-          <v-col>
-            <v-btn class="icons" color="transparent" depressed>
-              <v-icon large>mdi-block-helper</v-icon>Block Stuff
-            </v-btn>
-          </v-col>
-          <v-col>
-            <v-btn
-              @click="deleteStuff"
-              class="icons"
-              color="transparent"
-              depressed
-            >
-              <v-icon large>mdi-email</v-icon>
-            </v-btn>
-          </v-col>
-        </v-row>
-        <v-row v-else>
+        <v-row>
           <v-col>
             <v-btn
               @click.stop="messageDialog = true"
