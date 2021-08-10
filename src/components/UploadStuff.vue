@@ -2,7 +2,7 @@
   <v-card dark id="card">
     <v-container>
       <v-form ref="form" enctype="multipart/form-data">
-        <v-row justify="center" class="text">{{header}}</v-row>
+        <v-row justify="center" class="text">{{ header }}</v-row>
         <v-row wrap>
           <v-col>
             <v-text-field
@@ -46,7 +46,7 @@
           color="#ff6802"
           label="Stuff Description"
           v-model="description"
-           rows="10"
+          rows="10"
           :rules="[rules.required, rules.descriptionLength]"
           outlined
         ></v-textarea>
@@ -64,7 +64,9 @@
           </v-col>
           <v-spacer></v-spacer>
           <v-col>
-            <v-btn color="success" @click="sendStuff">{{upButton}} Stuff</v-btn>
+            <v-btn color="success" @click="sendStuff"
+              >{{ upButton }}   Stuff</v-btn
+            >
           </v-col>
         </v-row>
         <v-row>
@@ -91,22 +93,33 @@
 
 <script>
 export default {
- props : ["header", "initName", "initPrice", "initCurrency", "initDescription", "upButton", "imagesToDisplay" ],
-  data: vm => ({
-    description:vm.initDescription,
-    name:vm.initName,
-    currency:vm.initCurrency,
-    price:vm.initPrice,
+  props: [
+    "initHeader",
+    "initName",
+    "initPrice",
+    "initCurrency",
+    "initDescription",
+    "upButton",
+    "imagesToDisplay",
+    "initUpdate" 
+  ],
+  data: (vm) => ({
+    description: vm.initDescription,
+    name: vm.initName,
+    currency: vm.initCurrency,
+    price: vm.initPrice,
     imagesToUpload: [],
     pictureTarget: "",
+    header: vm.initHeader,
+    isUpdate: vm.initUpdate,
     rules: {
-      required: value => !!value || "Required",
-      nameLength: value =>
+      required: (value) => !!value || "Required",
+      nameLength: (value) =>
         value.length > 4 || "Name must be more than 5 characters ",
-      priceRules: value => !isNaN(value) || "Price must be a number",
-      descriptionLength: value =>
-        value.length > 10 || "Description must be more than 10 characters"
-    }
+      priceRules: (value) => !isNaN(value) || "Price must be a number",
+      descriptionLength: (value) =>
+        value.length > 10 || "Description must be more than 10 characters",
+    },
   }),
   created() {
     this.$store.dispatch("getCurrencies");
@@ -114,14 +127,11 @@ export default {
   computed: {
     getCurrencies() {
       return this.$store.state.currencies;
-    }
+    },
   },
   methods: {
     selectFile(event) {
-        console.log("TEEEEE")
-        console.log(this.currency);
-        console.log(this.description);
-        console.log(this.name);
+      console.log(window.sessionStorage.getItem("id"))
       let target = event.target.files[0];
       this.pictureTarget = target;
       this.imagesToUpload.push(target);
@@ -131,17 +141,23 @@ export default {
     },
     sendStuff() {
       const data = new FormData();
+      data.set("id", window.sessionStorage.getItem("id"))
       data.set("name", this.name);
       data.set("price", this.price);
       data.set("currency", this.currency);
       data.set("description", this.description);
       data.set("username", window.localStorage.getItem("username"));
-      this.imagesToUpload.forEach(i => data.append("images", i));
-      this.$store
-        .dispatch("uploadStuff", data)
-        .then(setTimeout(() => this.$router.push("/mystuff"), 1000));
+      this.imagesToUpload.forEach((i) => data.append("images", i));
+      if (this.isUpdate == true) {
+        this.$store
+          .dispatch("updateStuff", data)
+      } else {
+         this.$store
+          .dispatch("uploadStuff", data)
+          .then(setTimeout(() => this.$router.push("/mystuff"), 1000));
+      }
     },
-  }
+  },
 };
 </script>
 

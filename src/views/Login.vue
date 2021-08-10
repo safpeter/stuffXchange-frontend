@@ -110,24 +110,6 @@ export default {
         password: this.password
       });
     },
-    //  getResponse(){
-    //     window.localStorage.setItem("username",this.name);
-    //            (this.$store.dispatch("getUserDetails",this.name)).then(
-    //              window.localStorage.setItem("role",  "user")).then(
-    //                 this.$router.push("/home"));
-    //  },
-    // async login() {
-    //   try {
-    //     this.dispatch()
-    //      let response = await  this.$store.signResult
-    //      console.log(response)
-    //      console.log(this.$store.state.signResult);
-
-    //   } catch (err) {
-    //     console.log("something went wrong!")
-    //     this.dialog = true
-    //   }
-    // },
     login() {
       let promise = new Promise(resolve => {
         resolve(this.dispatch());

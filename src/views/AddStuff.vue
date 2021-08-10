@@ -2,13 +2,14 @@
   <div>
     <v-container>
       <UploadStuff
-        :header="this.header"
+        :initHeader="this.header"
         :upButton="this.upload"
         :imagesToDisplay="this.imagesToDisplay"
         :initPrice="this.stuffPrice"
         :initName="this.stuffName"
         :initCurrency="this.stuffCurrency"
         :initDescription="this.stuffDescription"
+        :initUpdate="this.isUpdate"
       ></UploadStuff>
     </v-container>
   </div>
@@ -25,7 +26,8 @@ export default {
       stuffDescription:"",
       imagesToDisplay: [],
       header: "Add New Stuff",
-      upload: "Upload ",
+      upload: "Upload",
+      isUpdate: false
   }),
 };
 </script>

@@ -234,7 +234,18 @@ export default new Vuex.Store({
           "Access-Control-Allow-Origin": "*"
         },
       }).then(response => context.commit("setProfileRespond", response.data));
-    }
+    },
+    updateStuff(context, data) {
+      axios({
+        method: "put",
+        url: `http://localhost:9000/updatestuff/${data.get('id')}`,
+        data: data,
+        headers: {
+          Authorization: "Bearer " + window.localStorage.getItem("token"),
+          "Access-Control-Allow-Origin": "*"
+        },
+      }).then(response => context.commit("setStuffDetails", response.data));
+    },
   },
 
   modules: {}

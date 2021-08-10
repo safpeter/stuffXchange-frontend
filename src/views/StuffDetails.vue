@@ -2,7 +2,7 @@
   <div>
     <v-card dark class="properties">
       <v-container>
-        <v-row v-if="this.getStuffDetails.user.name === this.usernameInStorage">
+        <v-row v-if="getStuffDetails.user.name === this.usernameInStorage">
           <MyDetailHeader></MyDetailHeader>
         </v-row>
         <v-row v-else>

@@ -1,13 +1,14 @@
 <template>
   <v-container>
     <UploadStuff
-      :header="this.header + getStuffDetails.name"
+      :initHeader="this.header + ' ' +getStuffDetails.name"
       :initName="getStuffDetails.name"
       :initPrice="getStuffDetails.price"
       :initCurrency="getStuffDetails.currency"
       :initDescription="getStuffDetails.description"
-      :upButton="this.header "
+      :upButton="this.header"
       :imagesToDisplay="getImages"
+      :initUpdate="this.isUpdate"
     ></UploadStuff>
   </v-container>
 </template>
@@ -15,7 +16,7 @@
 <script>
 import UploadStuff from "@/components/UploadStuff.vue";
 export default {
-  created(){
+  created() {
     this.$store.dispatch("getAllImage", window.sessionStorage.getItem("id"));
     this.$store.dispatch(
       "getStuffDetails",
@@ -31,9 +32,10 @@ export default {
       return this.$store.state.images;
     },
   },
-  data:() => ({
-      header: "Update ",
-    }),
+  data: () => ({
+    header: "Update",
+    isUpdate: true
+  }),
 };
 </script>
 

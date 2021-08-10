@@ -21,15 +21,11 @@
 <script>
 export default {
   methods: {
-    data: () => ({
-      usernameInStorage: window.localStorage.getItem("username"),
-      stuffIdInStorage: window.sessionStorage.getItem("id"),
-    }),
     deleteStuff() {
       this.$store
         .dispatch("deleteStuff", {
-          id: this.stuffIdInStorage,
-          username: this.usernameInStorage,
+          id: window.sessionStorage.getItem("id"),
+          username: window.localStorage.getItem("username"),
         })
         .then(setTimeout(() => this.$router.push("/mystuff"), 1000));
     },
