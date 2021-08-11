@@ -101,19 +101,19 @@ export default {
       username: window.localStorage.getItem("username"),
       name: null,
       nameRules: [
-        v => !!v || "Name is required",
-        v =>
+        (v) => !!v || "Name is required",
+        (v) =>
           (v && v.length <= 20) ||
           v.length < 4 ||
           "Name must be less than 20 characters",
-        v => v.length > 3 || "Name must be more than 3 characters"
+        (v) => v.length > 3 || "Name must be more than 3 characters",
       ],
       email: null,
       emailRules: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
-      country: null
+      country: null,
     };
   },
   created() {
@@ -126,7 +126,7 @@ export default {
     },
     getCountries() {
       return this.$store.state.countries;
-    }
+    },
   },
   methods: {
     customFilter(item, queryText) {
@@ -143,7 +143,7 @@ export default {
         id: window.sessionStorage.getItem("userId"),
         name: this.name,
         email: this.email,
-        country: this.country
+        country: this.country,
       });
       this.isEditing = !this.isEditing;
       this.hasSaved = true;
@@ -172,8 +172,8 @@ export default {
           window.sessionStorage.removeItem("search"),
           window.sessionStorage.removeItem("userId")
         );
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -187,7 +187,7 @@ export default {
   color: #ff6802;
 }
 .snackbar {
-  font-size: 9 0%;
+  font-size: 90%;
   margin-bottom: 40%;
 }
 .field {

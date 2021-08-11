@@ -10,6 +10,7 @@
         :initCurrency="this.stuffCurrency"
         :initDescription="this.stuffDescription"
         :initUpdate="this.isUpdate"
+        :cardText="this.cardText"
       ></UploadStuff>
     </v-container>
   </div>
@@ -27,7 +28,8 @@ export default {
       imagesToDisplay: [],
       header: "Add New Stuff",
       upload: "Upload",
-      isUpdate: false
+      isUpdate: false,
+      cardText:" has been Uploaded!"
   }),
 };
 </script>

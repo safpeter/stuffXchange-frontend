@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <UploadStuff
-      :initHeader="this.header + ' ' +getStuffDetails.name"
+      :initHeader="this.header + ' ' + getStuffDetails.name"
       :initName="getStuffDetails.name"
       :initPrice="getStuffDetails.price"
       :initCurrency="getStuffDetails.currency"
@@ -9,6 +9,7 @@
       :upButton="this.header"
       :imagesToDisplay="getImages"
       :initUpdate="this.isUpdate"
+      :cardText="this.cardText"
     ></UploadStuff>
   </v-container>
 </template>
@@ -34,7 +35,8 @@ export default {
   },
   data: () => ({
     header: "Update",
-    isUpdate: true
+    isUpdate: true,
+    cardText: " has been Updated!"
   }),
 };
 </script>

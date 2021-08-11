@@ -19,7 +19,7 @@
             </v-row>
             <v-row>
               <v-col
-                v-if="this.getStuffDetails.user.name != this.usernameInStorage"
+                v-if="getStuffDetails.user.name != this.usernameInStorage"
               >
                 <v-row class="label">Uploaded by:</v-row>
                 <v-row id="username" class="property">

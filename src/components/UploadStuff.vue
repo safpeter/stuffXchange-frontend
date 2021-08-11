@@ -85,6 +85,9 @@
             ></v-img>
           </v-card>
           <img id="picture" width="35%" height="35%" />
+           <v-snackbar v-model="hasUpdated" :timeout="2000" class="snackbar"
+        >{{ name }}  {{ cardText }}</v-snackbar
+      >
         </v-row>
       </v-form>
     </v-container>
@@ -101,7 +104,8 @@ export default {
     "initDescription",
     "upButton",
     "imagesToDisplay",
-    "initUpdate" 
+    "initUpdate" ,
+    "cardText"
   ],
   data: (vm) => ({
     description: vm.initDescription,
@@ -112,6 +116,9 @@ export default {
     pictureTarget: "",
     header: vm.initHeader,
     isUpdate: vm.initUpdate,
+    hasUpdated: false,
+    stuff: vm.initStuff,
+    cardText: vm.cardText,
     rules: {
       required: (value) => !!value || "Required",
       nameLength: (value) =>
@@ -131,7 +138,6 @@ export default {
   },
   methods: {
     selectFile(event) {
-      console.log(window.sessionStorage.getItem("id"))
       let target = event.target.files[0];
       this.pictureTarget = target;
       this.imagesToUpload.push(target);
@@ -151,10 +157,13 @@ export default {
       if (this.isUpdate == true) {
         this.$store
           .dispatch("updateStuff", data)
+          .then(this.hasUpdated = true)
+          .then(setTimeout(() => this.$router.push("/stuffdetails/" + window.sessionStorage.getItem('id')), 2000));
       } else {
          this.$store
           .dispatch("uploadStuff", data)
-          .then(setTimeout(() => this.$router.push("/mystuff"), 1000));
+          .then(this.hasUpdated = true)
+          .then(setTimeout(() => this.$router.push("/mystuff"), 2000));
       }
     },
   },
@@ -185,5 +194,10 @@ export default {
 }
 .btn {
   pointer-events: none;
+}
+
+.snackbar {
+  font-size: 100%;
+  margin-bottom: 40%;
 }
 </style>
