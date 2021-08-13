@@ -6,7 +6,9 @@
           <MyDetailHeader></MyDetailHeader>
         </v-row>
         <v-row v-else>
-          <NotMyDetailHeader></NotMyDetailHeader>
+          <NotMyDetailHeader
+            :initFavList="getFavouriteStuffIds"
+          ></NotMyDetailHeader>
         </v-row>
         <v-row>
           <v-col>
@@ -18,9 +20,7 @@
               <span id="currency">{{ getStuffDetails.currency }}</span>
             </v-row>
             <v-row>
-              <v-col
-                v-if="getStuffDetails.user.name != this.usernameInStorage"
-              >
+              <v-col v-if="getStuffDetails.user.name != this.usernameInStorage">
                 <v-row class="label">Uploaded by:</v-row>
                 <v-row id="username" class="property">
                   <v-btn
@@ -107,11 +107,19 @@ export default {
     getAllFavouriteStuff() {
       return this.$store.state.allFavouriteStuff;
     },
+    getFavouriteStuffIds() {
+      let favStuffIds = [];
+      for (let stuff of this.$store.state.allFavouriteStuff) {
+        favStuffIds.push(stuff.id);
+      }
+      return favStuffIds;
+    },
   },
   methods: {
     goToUserDetails(stuffuser) {
       window.sessionStorage.setItem("stuffuser", stuffuser);
-      this.$router.push("/userdetails/" + stuffuser);
+      this.$router.push("/userdetails/" + stuffuser); 
+      console.log(this.getFavouriteStuffIds);
     },
   },
 };

@@ -64,8 +64,9 @@
               class="mr-4"
               >Create Account</v-btn
             >
-            <v-snackbar v-model="okayDialog" :timeout="2000" absolute
-              >Successful Registration!</v-snackbar
+            <v-snackbar v-model="okayDialog" :timeout="2000" class="snackbar"
+              >Successful Registration with!
+              Now you can log in with {{this.name}}</v-snackbar
             >
             <v-dialog v-model="emailErrorDialog" max-width="500">
               <v-card dark>
@@ -172,7 +173,7 @@ export default {
               this.okayDialog = true;
               setTimeout(() => {
                 this.$router.push("/");
-              }, 1500);
+              }, 2000);
             }
           }, 1000)
         );
@@ -202,5 +203,10 @@ export default {
 
 #header {
   margin: 2%;
+}
+
+.snackbar {
+  font-size: 90%;
+  margin-bottom: 40%;
 }
 </style>

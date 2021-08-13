@@ -186,10 +186,12 @@ export default {
 .text {
   color: #ff6802;
 }
+
 .snackbar {
   font-size: 90%;
   margin-bottom: 40%;
 }
+
 .field {
   font-size: 130%;
 }

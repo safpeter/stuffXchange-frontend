@@ -54,6 +54,7 @@ export default {
 .image-cards {
   margin: 0.5%;
   background-color: #ff6802;
+  
 }
 
 .cards {
