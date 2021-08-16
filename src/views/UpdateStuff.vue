@@ -9,7 +9,7 @@
       :upButton="this.header"
       :imagesToDisplay="getImages"
       :initUpdate="this.isUpdate"
-      :cardText="this.cardText"
+      :initCardText="this.cardText"
     ></UploadStuff>
   </v-container>
 </template>

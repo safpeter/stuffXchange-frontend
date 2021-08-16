@@ -4,6 +4,8 @@ import axios from "axios";
 
 Vue.use(Vuex);
 
+const hostName = process.env.BACKEND_URL;
+//const hostName = 'localhost';
 export default new Vuex.Store({
   state: {
     allUserStuff: [],
@@ -61,7 +63,7 @@ export default new Vuex.Store({
     uploadStuff(context, stuff) {
       axios({
         method: "post",
-        url: "http://localhost:9000/uploadstuff",
+        url: "http://${hostName}:9000/uploadstuff",
         data: stuff,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
@@ -72,7 +74,7 @@ export default new Vuex.Store({
     getAllUserStuff(context, username) {
       axios({
         method: "get",
-        url: `http://localhost:9000/getalluserstuff/${username}`,
+        url: `http://${hostName}:9000/getalluserstuff/${username}`,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Origin": "*"
@@ -82,7 +84,7 @@ export default new Vuex.Store({
     getAllFavouriteStuff(context, username) {
       axios({
         method: "get",
-        url: `http://localhost:9000/getallfavouritestuff/${username}`,
+        url: `http://${hostName}:9000/getallfavouritestuff/${username}`,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Origin": "*"
@@ -94,7 +96,7 @@ export default new Vuex.Store({
     getAllImage(context, id) {
       axios({
         method: "get",
-        url: `http://localhost:9000/getimages/${id}`,
+        url: `http://${hostName}:9000/getimages/${id}`,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Origin": "*"
@@ -104,7 +106,7 @@ export default new Vuex.Store({
     getStuffDetails(context, id) {
       axios({
         method: "get",
-        url: `http://localhost:9000/stuffdetails/${id}`,
+        url: `http://${hostName}:9000/stuffdetails/${id}`,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Origin": "*"
@@ -114,13 +116,13 @@ export default new Vuex.Store({
     getCountries(context) {
       axios({
         method: "get",
-        url: `http://localhost:9000/getcountries`
+        url: `http://${hostName}:9000/getcountries`
       }).then(response => context.commit("setCountries", response.data));
     },
     getCurrencies(context) {
       axios({
         method: "get",
-        url: `http://localhost:9000/getcurrencies`,
+        url: `http://${hostName}:9000/getcurrencies`,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Origin": "*"
@@ -130,21 +132,21 @@ export default new Vuex.Store({
     sendRegistry(context, data) {
       axios({
         method: "post",
-        url: `http://localhost:9000/auth/signup`,
+        url: `http://${hostName}:9000/auth/signup`,
         data: data
       }).then(response => context.commit("setSignResult", response.data));
     },
     sendLogin(context, data) {
       axios({
         method: "post",
-        url: `http://localhost:9000/auth/login`,
+        url: `http://${hostName}:9000/auth/login`,
         data: data
       }).then(response => context.commit("setToken", response.data.token));
     },
     getUserDetails(context, username) {
       axios({
         method: "get",
-        url: `http://localhost:9000/getuserdetails/${username}`,
+        url: `http://${hostName}:9000/getuserdetails/${username}`,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Origin": "*"
@@ -154,7 +156,7 @@ export default new Vuex.Store({
     deleteStuff(context, data) {
       axios({
         method: "delete",
-        url: `http://localhost:9000/deletestuff/${data.id}/${data.username}`,
+        url: `http://${hostName}:9000/deletestuff/${data.id}/${data.username}`,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Origin": "*"
@@ -164,7 +166,7 @@ export default new Vuex.Store({
     getSearch(context, search) {
       axios({
         method: "get",
-        url: `http://localhost:9000/getsearch/${search}`,
+        url: `http://${hostName}:9000/getsearch/${search}`,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Origin": "*"
@@ -174,7 +176,7 @@ export default new Vuex.Store({
     markAsFavourite(context, data) {
       axios({
         method: "post",
-        url: `http://localhost:9000/markasfavourite`,
+        url: `http://${hostName}:9000/markasfavourite`,
         data: data,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
@@ -185,7 +187,7 @@ export default new Vuex.Store({
     sendRating(context, rating) {
       axios({
         method: "post",
-        url: `http://localhost:9000/rateuser`,
+        url: `http://${hostName}:9000/rateuser`,
         data: rating,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
@@ -196,7 +198,7 @@ export default new Vuex.Store({
     updateProfile(context, data) {
       axios({
         method: "put",
-        url: `http://localhost:9000/updateprofile/${data.id}`,
+        url: `http://${hostName}:9000/updateprofile/${data.id}`,
         data: data,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
@@ -207,7 +209,7 @@ export default new Vuex.Store({
     sendMessage(context, data) {
       axios({
         method: "post",
-        url: `http://localhost:9000/sendmessage`,
+        url: `http://${hostName}:9000/sendmessage`,
         data: data,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
@@ -218,7 +220,7 @@ export default new Vuex.Store({
     getPopularStuff(context, username) {
       axios({
         method: "get",
-        url: `http://localhost:9000/getpopularstuff/${username}`,
+        url: `http://${hostName}:9000/getpopularstuff/${username}`,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Origin": "*"
@@ -228,7 +230,7 @@ export default new Vuex.Store({
     deleteProfile(context, id) {
       axios({
         method: "delete",
-        url: `http://localhost:9000/deleteprofile/${id}`,
+        url: `http://${hostName}:9000/deleteprofile/${id}`,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Origin": "*"
@@ -238,7 +240,7 @@ export default new Vuex.Store({
     updateStuff(context, data) {
       axios({
         method: "put",
-        url: `http://localhost:9000/updatestuff/${data.get('id')}`,
+        url: `http://${hostName}:9000/updatestuff/${data.get('id')}`,
         data: data,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),

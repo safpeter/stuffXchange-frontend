@@ -105,7 +105,7 @@ export default {
     "upButton",
     "imagesToDisplay",
     "initUpdate" ,
-    "cardText"
+    "initCardText"
   ],
   data: (vm) => ({
     description: vm.initDescription,
@@ -118,7 +118,7 @@ export default {
     isUpdate: vm.initUpdate,
     hasUpdated: false,
     stuff: vm.initStuff,
-    cardText: vm.cardText,
+    cardText: vm.initCardText,
     rules: {
       required: (value) => !!value || "Required",
       nameLength: (value) =>
