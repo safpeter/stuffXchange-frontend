@@ -10,7 +10,7 @@
         :initCurrency="this.stuffCurrency"
         :initDescription="this.stuffDescription"
         :initUpdate="this.isUpdate"
-        :cardText="this.cardText"
+        :initCardText="this.cardText"
       ></UploadStuff>
     </v-container>
   </div>
