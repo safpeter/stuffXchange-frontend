@@ -34,15 +34,23 @@
           v-model="username"
           :disabled="!isEditing"
           class="field"
-          :label="getDetails.name"
+          label="Username"
           :rules="nameRules"
         ></v-text-field>
         <v-text-field
           v-model="email"
           class="field"
           :disabled="!isEditing"
-          :label="getDetails.email"
+          label="E-mail"
           :rules="emailRules"
+        ></v-text-field>
+        <v-text-field
+          v-model="password"
+          class="field"
+          :disabled="!isEditing"
+          label="Password"
+          :rules="passwordRules"
+          type="password"
         ></v-text-field>
         <v-autocomplete
           v-model="country"
@@ -62,9 +70,21 @@
         <v-spacer></v-spacer>
         <v-btn :disabled="!isEditing" color="success" @click="save">Save</v-btn>
       </v-card-actions>
-      <v-snackbar v-model="hasSaved" :timeout="2500" class="snackbar"
-        >Your profile has been updated</v-snackbar
-      >
+      <v-snackbar
+        v-model="hasSaved"
+        :timeout="2000"
+        class="snackbar"
+      >{{this.updateSuccess}}</v-snackbar>
+      <v-snackbar
+        v-model="emailFail"
+        :timeout="2000"
+        class="snackbar"
+      >{{this.updateEmailFail}}</v-snackbar>
+      <v-snackbar
+        v-model="nameFail"
+        :timeout="2000"
+        class="snackbar"
+      >{{this.updateNameFail}}</v-snackbar>
     </v-card>
     <v-dialog persistent v-model="dialog" max-width="600">
       <v-card dark>
@@ -93,15 +113,22 @@
 export default {
   data() {
     return {
+      updateSuccess:'Your profile has been updated',
+      updateEmailFail: 'This e-mail address already exists! Please choose another one!',
+      updateNameFail: 'This Name address already exists! Please choose another one!',
+      emailFail:false,
+      nameFail:false,
       hasSaved: false,
       isEditing: null,
       model: null,
       dialog: false,
       deleteDialog: false,
-      username: window.localStorage.getItem("username"),
-      name: null,
+      username:null,
+      password: null,
+      passwordRules: [
+        (v) => v.length > 7 || "Password must be minimum 8 characters!",
+      ],
       nameRules: [
-        (v) => !!v || "Name is required",
         (v) =>
           (v && v.length <= 20) ||
           v.length < 4 ||
@@ -109,15 +136,12 @@ export default {
         (v) => v.length > 3 || "Name must be more than 3 characters",
       ],
       email: null,
-      emailRules: [
-        (v) => !!v || "E-mail is required",
-        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-      ],
+      emailRules: [(v) => /.+@.+\..+/.test(v) || "E-mail must be valid"],
       country: null,
     };
   },
   created() {
-    this.$store.dispatch("getUserDetails", this.username);
+    this.$store.dispatch("getUserDetails", window.localStorage.getItem('username'));
   },
   computed: {
     getDetails() {
@@ -141,13 +165,22 @@ export default {
     save() {
       this.$store.dispatch("updateProfile", {
         id: window.sessionStorage.getItem("userId"),
-        name: this.name,
+        name: this.username,
+        password: this.password,
         email: this.email,
         country: this.country,
-      });
-      this.isEditing = !this.isEditing;
-      this.hasSaved = true;
-    },
+      })
+      .then(setTimeout(() => {
+        if (this.$store.state.updateResult == 'Wrong E-mail' )  {
+            this.emailFail = true 
+            } else if(this.$store.state.updateResult == 'Wrong Name') {
+                this.nameFail = true
+          } else if(this.$store.state.updateResult == 'Profile Updated') {
+              this.hasSaved = true,
+              this.isEditing = !this.isEditing;
+          }
+      }, 2000))}
+    ,
     getDialog() {
       this.dialog = true;
     },
@@ -173,7 +206,7 @@ export default {
           window.sessionStorage.removeItem("userId")
         );
     },
-  },
+  }
 };
 </script>
 

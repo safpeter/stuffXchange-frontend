@@ -19,7 +19,8 @@ export default new Vuex.Store({
     userDetails: [],
     deleteMessage: "",
     searches: [],
-    userRating: ""
+    userRating: "",
+    updateResult: ""
   },
   mutations: {
     setAllUserStuff(state, allStuff) {
@@ -51,6 +52,9 @@ export default new Vuex.Store({
     },
     setUserDetails(state, details) {
       state.userDetails = details;
+    },
+    setUpdateResult(state, updateResult){
+      state.updateResult = updateResult;
     },
     setDeleteResponse(state, message) {
       state.deleteMessage = message;
@@ -204,7 +208,7 @@ export default new Vuex.Store({
           Authorization: "Bearer " + window.localStorage.getItem("token"),
           "Access-Control-Allow-Origin": "*"
         },
-      }).then(response => context.commit("setUserDetails", response.data));
+      }).then(response => context.commit("setUpdateResult", response.data));
     },
     sendMessage(context, data) {
       axios({
