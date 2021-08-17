@@ -3,7 +3,7 @@
     <v-card dark class="properties">
       <v-container>
         <v-row v-if="getStuffDetails.user.name === this.usernameInStorage">
-          <MyDetailHeader></MyDetailHeader>
+          <MyDetailHeader :initName="getStuffDetails.name"></MyDetailHeader>
         </v-row>
         <v-row v-else>
           <NotMyDetailHeader

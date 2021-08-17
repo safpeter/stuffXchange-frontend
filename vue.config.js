@@ -1,3 +1,3 @@
 module.exports = {
-  transpileDependencies: ["vuetify", "cookie"]
+  transpileDependencies: ["vuetify", "cookie"],
 };

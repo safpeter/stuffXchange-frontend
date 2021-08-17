@@ -49,7 +49,7 @@ export default {
         this.markedFav = false
       }
   },
-  data: (vm) => ({
+  data: vm => ({
     messageDialog: false,
     favList: vm.initFavList,
     stuffId: parseInt(window.sessionStorage.getItem("id")),

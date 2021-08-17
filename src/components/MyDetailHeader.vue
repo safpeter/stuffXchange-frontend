@@ -5,6 +5,8 @@
         <v-icon large>mdi-delete</v-icon>Delete Stuff
       </v-btn>
     </v-col>
+    <v-snackbar v-model="hasDeleted" :timeout="2000" class="snackbar">
+        {{ this.name}} has been deleted!</v-snackbar>
     <v-col>
       <v-btn
         @click="goToUpdateStuff"
@@ -20,6 +22,11 @@
 
 <script>
 export default {
+  props:['initName'],
+  data:vm => ({
+    hasDeleted:false,
+    name: vm.initName,
+  }),
   methods: {
     deleteStuff() {
       this.$store
@@ -27,7 +34,8 @@ export default {
           id: window.sessionStorage.getItem("id"),
           username: window.localStorage.getItem("username"),
         })
-        .then(setTimeout(() => this.$router.push("/mystuff"), 1000));
+        .then(this.hasDeleted = true)
+        .then(setTimeout(() => this.$router.push("/mystuff"), 2000));
     },
     goToUpdateStuff() {
       this.$router.push("/update");
@@ -42,4 +50,8 @@ export default {
   color: #ff6802;
 }
 
+.snackbar {
+  font-size: 100%;
+  margin-bottom: 40%;
+}
 </style>

@@ -4,8 +4,8 @@ import axios from "axios";
 
 Vue.use(Vuex);
 
-const hostName = process.env.BACKEND_URL;
-//const hostName = 'localhost';
+//const hostName = process.env.BACKEND_URL;
+const hostName = 'localhost';
 export default new Vuex.Store({
   state: {
     allUserStuff: [],
@@ -63,7 +63,7 @@ export default new Vuex.Store({
     uploadStuff(context, stuff) {
       axios({
         method: "post",
-        url: "http://${hostName}:9000/uploadstuff",
+        url: `http://${hostName}:9000/uploadstuff`,
         data: stuff,
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
